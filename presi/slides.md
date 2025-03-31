@@ -1,26 +1,15 @@
 ---
-# You can also start simply with 'default'
 theme: default
-# random image from a curated Unsplash collection by Anthony
-# like them? see https://unsplash.com/collections/94734566/slidev
 background: /images/main-bg.jpg
-# some information about your slides (markdown enabled)
 title: GenAI and Software Development
 info: |
   ## GenAI and Software Development
   Modern AI-Enhanced Development Workflows and Their Impact
-# apply unocss classes to the current slide
 class: text-center
-# https://sli.dev/features/drawing
 drawings:
   persist: false
-# slide transition: https://sli.dev/guide/animations.html#slide-transitions
 transition: slide-left
-# enable MDC Syntax: https://sli.dev/features/mdc
 mdc: true
-# open graph
-# seoMeta:
-#  ogImage: https://cover.sli.dev
 highlighter: shiki
 lineNumbers: false
 ---
@@ -28,8 +17,12 @@ lineNumbers: false
 # GenAI and Software Development
 Modern AI-Enhanced Development Workflows and Their Impact
 
+Presented by:
+Jim Vogel (Gravitate) & Daniel Hartig (O2X)
+
 ---
-layout: intro
+layout: image-right
+image: /images/ai-tech-new.jpg
 ---
 
 # Introduction
@@ -38,11 +31,7 @@ layout: intro
 - The amplification effect
 - How AI is changing the development landscape
 
-::right::
 
-<div class="ml-4">
-  <img src="/images/ai-tech-new.jpg" class="rounded shadow-xl" />
-</div>
 
 ---
 layout: two-cols
