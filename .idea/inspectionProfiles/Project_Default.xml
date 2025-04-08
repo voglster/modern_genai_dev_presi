@@ -1,0 +1,28 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyDataclassInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="13">
+            <item index="0" class="java.lang.String" itemvalue="qdrant-client" />
+            <item index="1" class="java.lang.String" itemvalue="mattermostautodriver" />
+            <item index="2" class="java.lang.String" itemvalue="dspy" />
+            <item index="3" class="java.lang.String" itemvalue="icalendar" />
+            <item index="4" class="java.lang.String" itemvalue="pymongo" />
+            <item index="5" class="java.lang.String" itemvalue="tank_forecaster" />
+            <item index="6" class="java.lang.String" itemvalue="ims_client" />
+            <item index="7" class="java.lang.String" itemvalue="matplotlib" />
+            <item index="8" class="java.lang.String" itemvalue="aiofiles" />
+            <item index="9" class="java.lang.String" itemvalue="beanie" />
+            <item index="10" class="java.lang.String" itemvalue="gunicorn" />
+            <item index="11" class="java.lang.String" itemvalue="google-cloud-storage" />
+            <item index="12" class="java.lang.String" itemvalue="google.cloud" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

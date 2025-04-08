@@ -13,20 +13,49 @@ image: /images/ai-tech-new.jpg
 
 # Introduction
 
+- Expectations
+- Terminology Breakdown
 - AI in practical use
 - What AI can and cannot do
 - The Complexity Gap
 - How AI can improve your team's workflows
 - How AI is changing the development landscape
 
+---
+
+# What to expect
+
+- Current devs are "efficiently" using this
+- Where to apply LLMs in your workflow 
+- New tools you can take to your team
+
+---
+
+# Terminology
+
+- LLMs large language models
+- Context Window
+- RAG (Research Augmented Generation)
+  - Vectorization
+- Tools API
+- MCP (Model Context Protocol)
+- Agents
+- Prompt Engineering
+- Multi Modal
 
 ---
 
 # AI in practical use
 
-- The notes in here derive from experience working with migrating a Django monolith to FastAPI microservices. 
-- I have personally spent a large amount of time over the last 1.5 months on this project and have experienced the highs and lows. 
-- Our team uses Enterprise Tabnine, which offers Claude 3.7 and ChatGPT-4o among other options.
+Dan
+- Derived from experience migrating a Django monolith to FastAPI microservices. 
+- Dedicated time over last 1.5 months with highs & lows
+- AI Stack: Enterprise Tabnine ->  Claude 3.7 and ChatGPT-4o
+
+Jim
+- Large python project over last 5 years
+- AI Guru pushing for its use internally
+- AI Stack: Cursor AI, Claude 3.7, Custom Agents + MCPs
 
 <!--
 I have spent a lot of my own time coding over the last two months and, for the first time in my career, I did a lot of it with an AI assistant. This presentation is the results of that work.
@@ -69,7 +98,7 @@ layout: two-cols
 ::right::
 
 <div class="ml-4" style="display: flex; align-items: center; height: 100%;">
-  <img src="/images/actual-usage.PNG" alt="Actual AI usage statistics" style="width: 100%" />
+  <img src="/images/actual-usage.png" alt="Actual AI usage statistics" style="width: 100%" />
 </div>
 
 <!--
@@ -112,10 +141,10 @@ In addition to trying it out as a code generation tool, another way to ease into
 # What AI can and cannot do - Weaknesses
 
 - **Syntax**. AI tools will occasionally create code that does not compile or run.
-- **Using the correct veresion.** Because SQLAlchemy 1.4 has been out for much longer than SQLAlchemy 2.0, if you ask for links to documentation you will often get links to SQLAlchemy 1.4, even when prompting:
+- **Using the correct version.** Because SQLAlchemy 1.4 has been out for much longer than SQLAlchemy 2.0, if you ask for links to documentation you will often get links to SQLAlchemy 1.4, even when prompting:
 > "Using SQLAlchemy 2.0, create a function that does this"
 
-- **Imagining functions.** This is particularly frustrating when it imagines a useful fuction in a library that simply doesn't exist. When prompted to ask where in code is this function implemented, you may get a link to a completely irrelevant chunk of code. 
+- **Imagining functions.** This is particularly frustrating when it imagines a useful function in a library that simply doesn't exist. When prompted to ask where in code is this function implemented, you may get a link to a completely irrelevant chunk of code. 
 
 <!--
 Be prepared to face the limitations of AI tools, and don't butt your heads into them. There are ways around all of these limitations. To check correctness of the code that is written, it is imperative to enable a tight code -> test cycle. If you write some code, how fast can you test it?
@@ -218,56 +247,120 @@ Retrieval augmented generation is great for helping your code look consistent. B
 Do it the same way every time to get the same, expected results every time.
 -->
 
+- Don't ask the AI to do too much at once. Give it one simple task to accomplish at a time.
+- Give the AI examples to follow whenever possible, by pointing it to specific code snippits you want it to follow. 
+> Create a unit test for this_function in path/to/file.py following the same pattern used on line 123 of path/to/test_file.py
+
+- Even better, ensure that what you are creating is demonstrated the same way using the same pattern in the same file!
 
 ---
-layout: default
+
+# Development
+
+- Not just code
+- Group of Systems
+  - Idea -> Customer
+- Examples
+  - Continuous Discovery
+  - Tickets/Organization
+  - Prototypes
+  - Preview
+  - Feedback
+
+---
+
+# How Jim sees LLMS
+
+- Human augmentation
+- Just like the phone next to you
+  - gps vs maps
+  - google
+  - ask AI
+- Democratize of Knowledge
+- Brainstorming Partner
+- Leverage/Amplification
+- Fit them into the systems
+
+---
+
+
+# Communication
+
+- Unbiased
+- Effective communication
+- cleaner status updates
+- Code reviews
+- Organization of tasks
+  - jira
+  - task boards etc
+  - MCPs we can talk about later
+
+---
+
+# Example:
+- Agent that interviews the team
+- Compiles the standup information
+
+Before:
+- 30 minute standups
+- Disorganized
+- No notes/History
+
+After:
+- 5 minute standups
+- highlights are organized
+- speak up if ai got it wrong
+
+
 ---
 
 # The Complexity Gap: Real Examples
 
+As we increase complexity the chance of success drops
+
+insert graph of the complexity
+
 ## Simple Tasks: High Success Rate
-```python
-# AI nails this immediately
-@app.post("/users")
-def create_users(users: List[UserModel]):
-    return db.users.insert_many([u.dict() for u in users])
-```
+Give me basic CRUD endpoints for this user model
+
+# Why it works
+- Internet is littered with examples
+- task is simple
+- Nothing "new" to think about
 
 ---
 
 ## Complex Tasks: Success Drops
-```python
-# AI struggles with complex business logic
-@app.post("/process-excel")
-async def process_excel(
-    file: UploadFile,
-    rules: BusinessRules,
-    config: Dict[str, Any]
-):
-    # AI often misses:
-    # - Proper error handling
-    # - Business rule validation
-    # - Multiple collection updates
-    # - Status reporting
-```
 
----
-layout: two-cols
+# insert image of crossing gap
+
+Write a function to calculate net price based on 
+- a mix of customer-specific rules
+- fallback brand-level defaults
+- a pricing floor
+- and special holiday exceptions from a config object
+- return errors if any constraint is violated.
+
+# Why it doesnt work
+- too much wiggle room
+- not specific enough
+
 ---
 
 # Rapid Prototyping with AI
-
----
-
 ## Case Study: Math Formula Visualization
 - Complex MILP model visualization
 - From concept to interactive UI in minutes
 - Stakeholder feedback during live calls
 
+## Vision (Multi Modal)
+- napkin drawing
+- design systems
 
 ---
 
 ## Streamlit Success Stories
+- What is a streamlit
 - Quick prototypes during customer calls
 - Interactive data exploration
 - Rapid iteration on business logic
@@ -279,52 +372,6 @@ layout: two-cols
 </div>
 
 ---
-layout: default
----
-
-# Breaking Down Complex Problems
-
-## The Right Way
-1. Decompose into smaller tasks
-2. Use AI for specific syntax/patterns
-3. Maintain system-level thinking
-4. Validate each component
-
-
----
-
-Write a Python function that calculates the net price after applying a 5% discount.
-
-## Example: Pricing Engine
-Simple:
-```python
-def calculate_discount(price: float) -> float:
-    return price * 0.95  # 5% discount
-```
-
----
-
-
-Write a function to calculate net price based on a mix of customer-specific rules, fallback brand-level defaults, a pricing floor, and special holiday exceptions from a config object, and return errors if any constraint is violated.
-
-Complex (needs decomposition):
-```python
-def calculate_net_price(
-    base_price: float,
-    customer_rules: dict,
-    brand_defaults: dict,
-    holiday_config: dict
-) -> tuple[float, list[str]]:
-    # Break this down into:
-    # 1. Customer rule application
-    # 2. Brand default fallbacks
-    # 3. Holiday special handling
-    # 4. Constraint validation
-```
-
----
-layout: two-cols
----
 
 # Modern AI-Enhanced Workflows
 
@@ -332,6 +379,14 @@ layout: two-cols
 - System thinking approach
 - Breaking down complex tasks
 - Iterative refinement
+
+## add an image from the effective agents page
+
+---
+
+# Have AI interview you
+- communicate better
+- create a more concise prompt
 
 ---
 
@@ -347,10 +402,44 @@ layout: two-cols
 </div>
 
 ---
-layout: default
+
+# Testing Flow
+
+- write the code first
+- AI review, generate answers
+
+---
+
+# Cons
+
+- Amplification
+  - Amplifies errors too
+- Easy to get "lazy"
+  - Systems approach/Checklist
+- Over estimating ability
+  - No common sense
+
+---
+
+# Bonus: MCP
+- Tools
+- Model Context protocol
+  - Wealth of things available
+- Agent design
+- Presentation was done with cursor
+- Images MCP
+
+---
+
+# Bonus 2: Mermaid Diagrams
+- Picture work 1000 words
+- Communicate better
+- Demo a mermaid diagram
+
 ---
 
 # Team and Career Impact
+- get on the train, don't miss it
 
 ## Knowledge Democratization
 - Faster onboarding
@@ -369,4 +458,4 @@ class: text-center
 
 # Thank You
 
-[GitHub](https://github.com/yourusername) · [Twitter](https://twitter.com/yourusername)
+Jim Vogel (Gravitate) & Daniel Hartig (O2X)
