@@ -1,18 +1,4 @@
 ---
-theme: default
-background: /images/main-bg.jpg
-title: GenAI and Software Development
-info: |
-  ## GenAI and Software Development
-  Modern AI-Enhanced Development Workflows and Their Impact
-class: text-center
-drawings:
-  persist: false
-transition: slide-left
-mdc: true
-highlighter: shiki
-lineNumbers: false
----
 
 # GenAI and Software Development
 Modern AI-Enhanced Development Workflows and Their Impact
@@ -34,7 +20,6 @@ image: /images/ai-tech-new.jpg
 - How AI is changing the development landscape
 
 
-
 ---
 
 # AI in practical use
@@ -42,6 +27,32 @@ image: /images/ai-tech-new.jpg
 - The notes in here derive from experience working with migrating a Django monolith to FastAPI microservices. 
 - I have personally spent a large amount of time over the last 1.5 months on this project and have experienced the highs and lows. 
 - Our team uses Enterprise Tabnine, which offers Claude 3.7 and ChatGPT-4o among other options.
+
+<!--
+I have spent a lot of my own time coding over the last two months and, for the first time in my career, I did a lot of it with an AI assistant. This presentation is the results of that work.
+
+About me, I have been active as a code writer for my entire career, even though the last 6 or so years in a management position. At Best Buy, my last company I'd be considered one of the top engineers for Go, Kubernetes and AWS/Terraform. 
+
+At this job I have been translating Django code to FastAPI. I have some python experience in the realm of data science but had never before been responsible for a Python project architecture, nor for creating Python servers. 
+
+With the AI assistance, I was able to easily blast through the issues of learning the new syntax. The code completion tool at first simply corrected my Go syntax into Python as I typed until I became familiar enough to use all the indentation and colons correctly.
+
+I would say that overall, I have personally seen a 2x to 3x speedup in code throughput. For example, re-wrote a chat service (4 tables, 7 API endpoints) with 100% test coverage in about 20-25 hours. 
+-->
+
+---
+
+## How it works
+
+- Example from Tabnine docs ... all AI code assistants work similarly
+
+<img src="/images/tabnine-rag-arch.avif" alt="Tabnine RAG Architecture" style="width: 80%; max-height: 70vh; object-fit: contain;" />
+
+<!--
+The customization power for an AI code assistant derives from retrieval augumented generation or RAG. RAG generates code based on similar pieces of code that already exist in your codebase, helping the AI assistant to generate code that matches your team's style.
+
+RAG works in two ways with Tabnine. Auto-completion prompts use a locally available RAG index stored using a Quadrant vector database maintained in a docker image on your local machine. The enterprise product enables a more powerful index held on the Tabnine server, which can either be a SaaS product or self-hosted. 
+-->
 
 ---
 layout: two-cols
@@ -60,6 +71,16 @@ layout: two-cols
 <div class="ml-4" style="display: flex; align-items: center; height: 100%;">
   <img src="/images/actual-usage.PNG" alt="Actual AI usage statistics" style="width: 100%" />
 </div>
+
+<!--
+In general, there are three ways to interact with code. First you can use it as an advanced code completion tool. Just like bash will try to autocomplete paths that you want to write, AI can be used to suggest completions on code that you are currently typing. 
+
+Second, you can chat with it. This is exactly the same experience as chatting with ChatGPT or Perplexity, except that the models are fine-tuned by your provider to focus on code knowledge and the answers can be generated in the context of your own codebase.
+
+Finally, there are agents, which are the newest capability just coming online. Agents can be made for specific purposes, such as creating test plans for a piece of code, or for converting Jira issues into proposed PRs. 
+
+We can see some real data from my team here, and that different people on the team use the tool indifferent ways. I'm the guy there with the very high auto-completion usage; I find tab-completion natural to my coding style and a very effective way to rapidly fill in boilerplate code. 
+-->
 
 ---
 
@@ -80,6 +101,12 @@ layout: two-cols
 - Following concrete examples within the same context. 
 > Create a function that takes a list of this class as a parameter and writes them all to the database following the example of the function at line 123 \[of path/to/file.py\]
 
+<!--
+Especially if you are new to coding with AI, make sure that you ask it questions that are more likely to give you useful answers. If you can start from any sort of documentation, describing functions that you want to exist, AI stands a good change of creating them correctly in one go, if they are not too complex. If you have existing functions and examples of testing already in place in your RAG vector graph, there is a pretty good chance that AI will be able to create useful tests in one go. 
+
+In addition to trying it out as a code generation tool, another way to ease into AI usage is by asking it to discuss code. For me, with limited front end experience, it does a great job explaining the nuances of mobile code written in ReactNative. You can easily ask follow up questions about libraries or functions that you see used to determine what they are doing in the context of a function. 
+-->
+
 ---
 
 # What AI can and cannot do - Weaknesses
@@ -90,6 +117,12 @@ layout: two-cols
 
 - **Imagining functions.** This is particularly frustrating when it imagines a useful fuction in a library that simply doesn't exist. When prompted to ask where in code is this function implemented, you may get a link to a completely irrelevant chunk of code. 
 
+<!--
+Be prepared to face the limitations of AI tools, and don't butt your heads into them. There are ways around all of these limitations. To check correctness of the code that is written, it is imperative to enable a tight code -> test cycle. If you write some code, how fast can you test it?
+
+Also, prompt management can help you to avoid certain problems by clarifying information during queries that you don't want to type out each time. For example, in our Python project we are using SQLAlchemy 2.0. We can add a global prompt that will attach this version information to any question that any user in the organization asks. 
+-->
+
 ---
 
 # What AI can and cannot do - Maybe ???
@@ -98,11 +131,15 @@ layout: two-cols
 - **Complex relationships**. Especially infrastructure as code. 
     - Does not understand templating rules in helm charts.
     - Rarely understands how to use local terraform modules.
-- **Repository sync**. I have chosen to unlink our TabNine enterprise instance from our GitLab account due to it using older version of the main as source. 
-    - Especially true when multiple people are working in different branches. 
-    - Great reason for trunk based development. 
-    - Great reason to use monorepos so entire context lives locally. No need for GitHub/GitLab connector!
-    - I am not sure I am doing this right!
+- **YAML, JSON and bash**. Tabnine in particular does not index these files for RAG.
+    - I have had success building JSON schemas from JSON objects.
+    - I have not had much success with using yaml files along with the Helm terraform provider. Tabnine can't understand the yaml syntax!
+
+<!--
+Here are some notes on things that AI may be able to do, but I've had trouble with. In general, some of the more "out of the box" things that I've seen out there on the big internet don't really work that well.
+
+These are some of the things that are likey to be big wins in future model updates and improvements; I'll make sure to come back and test these as the next generation models get rolled out. 
+-->
 
 ---
 layout: two-cols
@@ -124,6 +161,14 @@ layout: two-cols
   <img src="/images/code-automation-meme.webp" alt="Actual AI usage statistics" style="width: 100%" />
 </div>
 
+<!--
+AI is great at doing something that 10,000 other engineers thave done before, but you have not done before. There are often a lot of tasks that use a library you are not familiar with or that you might do in a different language where AI can provide you a 90% solution near instantaneosly. 
+
+Here is an exammple from my own experience. I had to split a single yaml file container information on teams into over 20 individual yaml files. I could have done this manually in a few minutes, but like any good over-engineer, I wanted to automate this. 
+
+With Copilot, I was able to do this instantly, getting  a bash script using yq that got it right on the first try. Not a hard problem, but a great example of saving half an hour. 
+-->
+
 
 ---
 
@@ -134,35 +179,44 @@ layout: two-cols
 - A static type checker such as `mypy` is an example of a tools that, when applied through the IDE, will immediately tell you if the AI is making things up. Every language has these!
 - Syntax errors and non-standard created code can often be caught and corrected by linting tools. For python we use `flake8`, `black` and `isort` together. 
 
+<!--
+AI hallucinations manifest themselves in code assistant output. An AI can suggest functions that do not exist in the package you are using, but belong to similar package in the same or even another language. 
+
+The easiest way to catch these issues without resorting to reading documentation yourself are linting tools. Every language has real-time linting tools that can be incorporated into an IDE to flag incorect AI output immediately.
+
+What do you do when the AI is suggesting that you do something that does not work? I take advantage of the different model providers (Claude 3.7, ChatGPT-4o, Command R+), switch to a different model and ask again. 
+-->
+
 ---
 
 # How to make AI work better - Do it the same way
 
 - You can do things a lot of ways in a lot of languages. An example from our codebase is that there are two ways (there are actually more) to do dependency injection in FastAPI:
 ```python
-handler: Handler = Depends(get_handler)
+@router.get("/events/{user_id}")
+async def get_fte_events(
+  handler: Handler = Depends(get_handler)
+  ...
+)
 ```
 vs. 
 ```python
-handler: Annotated(Handler, get_handler)
+@router.get("/events/{user_id}")
+async def get_fte_events(
+  handler: Annotated(Handler, get_handler)
+  ...
+)
 ```
 
-- If you mix these two in the context you provide to your AI, you will see all sorts of marvelous interpolations between the two. Do it the same way every time to get the same results.
-- You can use AI to search of usage variations in your library and correct them.
+- You can use AI to eliminate these different coding styles!
 
 > Find one instance of FastAPI dependency injection in this repository using the pattern 'handler: Handler = Dependency(get_handler)' and replace it to use Annotated instead."
 
-- Repeat!
----
+<!--
+Retrieval augmented generation is great for helping your code look consistent. But if your code does not look consistent in the first place, you will end up with problems. If there is something that can be written two different ways, and is written two different ways throughout your codebase, you will see all variety of interpolations between those two ways.
 
-# How to make AI work better - Constrain complexity 
-
-- Don't ask the AI to do too much at once. Give it one simple task to accomlish at a time.
-- Give the AI examples to follow whenever possible, by pointing it to specific code snippits you want it to follow. 
-> Create a unit test for this_function in path/to/file.py following the same pattern used on line 123 of path/to/test_file.py
-
-- Even better, ensure that what you are creating is demonstrated the same way using the same pattern in the same file!
-
+Do it the same way every time to get the same, expected results every time.
+-->
 
 
 ---
