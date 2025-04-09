@@ -329,10 +329,10 @@ Give me basic CRUD endpoints for this user model
 - Nothing "new" to think about
 
 ---
+layout: two-cols
+---
 
 ## Complex Tasks: Success Drops
-
-# insert image of crossing gap
 
 Write a function to calculate net price based on 
 - a mix of customer-specific rules
@@ -344,6 +344,18 @@ Write a function to calculate net price based on
 # Why it doesnt work
 - too much wiggle room
 - not specific enough
+ 
+::right::
+
+<div class="ml-4">
+  <img src="/images/small_jump.png" class="rounded shadow-xl" />
+  <img src="/images/big_jump.png" class="rounded shadow-xl" />
+</div>
+
+
+
+
+
 
 ---
 
@@ -389,6 +401,8 @@ Write a function to calculate net price based on
 - create a more concise prompt
 
 ---
+layout: two-cols
+---
 
 ## Integration Examples
 - Code generation and review
@@ -420,6 +434,8 @@ Write a function to calculate net price based on
   - No common sense
 
 ---
+layout: two-cols
+---
 
 # Bonus: MCP
 - Tools
@@ -428,6 +444,27 @@ Write a function to calculate net price based on
 - Agent design
 - Presentation was done with cursor
 - Images MCP
+
+::right::
+
+<div class="ml-4">
+  <img src="/images/llms_agents.png" class="rounded shadow-xl" />
+</div>
+
+---
+
+# Chaining
+
+<div class="ml-4">
+  <img src="/images/chaining.png" class="rounded shadow-xl" />
+</div>
+---
+
+# Iteration (Agent + State)
+
+<div class="ml-4">
+  <img src="/images/agent_iterative_style.png" class="rounded shadow-xl" />
+</div>
 
 ---
 
