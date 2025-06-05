@@ -1,492 +1,864 @@
 ---
+theme: seriph
+background: ./images/main-bg.jpg
+title: AI-Enhanced Development - The New Reality
+info: |
+  ## AI-Enhanced Development: The New Reality
+  How AI is transforming software development and creating massive opportunities
 
-# GenAI and Software Development
-Modern AI-Enhanced Development Workflows and Their Impact
+  Jim Vogel - Lead Developer @ Gravitate
+class: text-center
+highlighter: shiki
+lineNumbers: false
+colorSchema: dark
+transition: slide-left
+mdc: true
+fonts:
+  sans: 'Inter'
+  serif: 'Roboto Slab'
+  mono: 'Fira Code'
+---
 
-Presented by:
-Jim Vogel (Gravitate) & Daniel Hartig (O2X)
+# AI-Enhanced Development
+## The New Reality
+
+<div class="text-4xl font-light mb-4">
+From 30-Minute Standups to 5-Minute Updates
+</div>
+
+<div class="pt-12">
+  <span class="text-xl">Jim Vogel</span><br>
+  <span class="text-lg opacity-80">Lead Developer @ Gravitate</span>
+</div>
+
+<div class="abs-br m-6 flex gap-2">
+  <span class="text-sm opacity-50">Press Space to continue</span>
+</div>
+
+<!--
+Start strong with the standup story - it's relatable and immediately shows value.
+Let them know this isn't about replacing people, it's about amplifying capabilities.
+-->
 
 ---
+transition: fade-out
+layout: center
+---
+
+# What if I told you...
+
+<v-click>
+
+## We reduced our daily standups from 30 minutes to 5?
+
+</v-click>
+
+<v-click>
+
+## And made them MORE effective?
+
+</v-click>
+
+<v-click>
+
+## With an AI that never forgets to ask for updates?
+
+</v-click>
+
+<!--
+Build suspense here. Each click reveals more.
+This is your hook - make them want to know HOW.
+Set the tone: practical, real results, not sci-fi.
+-->
+
+---
+transition: slide-up
+---
+
+# The Standup Bot Story
+
+<div class="grid grid-cols-2 gap-8">
+<div>
+
+## Before AI 🥱
+- 30-minute daily standups
+- Chasing updates manually
+- Forgetting to update tickets
+- Context switching disruption
+- Team frustration
+
+</div>
+<div v-click>
+
+## After AI 🚀
+- 5-minute sync-ups
+- Automated Jira watching
+- Slack reminders at day's end
+- Morning summaries ready
+- Listen during coffee ☕
+
+</div>
+</div>
+
+<div v-click class="mt-8 text-center text-2xl">
+Result: 25 minutes saved daily × 5 devs = <span class="text-green-400 font-bold">10+ hours/week</span>
+</div>
+
+<!--
+This is a concrete example they can relate to.
+Emphasize the time savings and reduced friction.
+The bot does the annoying parts, humans do the thinking.
+Note: I even added text-to-speech so I can listen during coffee!
+-->
+
+---
+transition: fade
 layout: image-right
-image: /images/ai-tech-new.jpg
+image: ./images/futuristic-ai.jpg
 ---
 
-# Introduction
+# My AI Journey
 
-- Expectations
-- Terminology Breakdown
-- AI in practical use
-- What AI can and cannot do
-- The Complexity Gap
-- How AI can improve your team's workflows
-- How AI is changing the development landscape
+<v-clicks>
 
----
+- **Started with Stable Diffusion** - Fascinated by AI art generation
+- **Simple automations** - Vim hotkeys, code review scripts
+- **Growing sophistication** - As models improved, so did my usage
+- **Now: Full AI orchestration** - Agents that handle entire workflows
 
-# What to expect
+</v-clicks>
 
-- Current devs are "efficiently" using this
-- Where to apply LLMs in your workflow 
-- New tools you can take to your team
+<v-click>
 
----
+## The Key Insight
+> "I'm 10x more productive, happier, and focused on what matters"
 
-# Terminology
-
-- LLMs large language models
-- Context Window
-- RAG (Research Augmented Generation)
-  - Vectorization
-- Tools API
-- MCP (Model Context Protocol)
-- Agents
-- Prompt Engineering
-- Multi Modal
-
----
-
-# AI in practical use
-
-Dan
-- Derived from experience migrating a Django monolith to FastAPI microservices. 
-- Dedicated time over last 1.5 months with highs & lows
-- AI Stack: Enterprise Tabnine ->  Claude 3.7 and ChatGPT-4o
-
-Jim
-- Large python project over last 5 years
-- AI Guru pushing for its use internally
-- AI Stack: Cursor AI, Claude 3.7, Custom Agents + MCPs
+</v-click>
 
 <!--
-I have spent a lot of my own time coding over the last two months and, for the first time in my career, I did a lot of it with an AI assistant. This presentation is the results of that work.
+Personal story builds credibility.
+Show the progression - anyone can follow this path.
+Emphasize happiness - it's not just about productivity.
+-->
 
-About me, I have been active as a code writer for my entire career, even though the last 6 or so years in a management position. At Best Buy, my last company I'd be considered one of the top engineers for Go, Kubernetes and AWS/Terraform. 
+---
+transition: slide-left
+---
 
-At this job I have been translating Django code to FastAPI. I have some python experience in the realm of data science but had never before been responsible for a Python project architecture, nor for creating Python servers. 
+# Software ≠ Just Code
 
-With the AI assistance, I was able to easily blast through the issues of learning the new syntax. The code completion tool at first simply corrected my Go syntax into Python as I typed until I became familiar enough to use all the indentation and colons correctly.
+<div class="grid grid-cols-2 gap-12">
+<div>
 
-I would say that overall, I have personally seen a 2x to 3x speedup in code throughput. For example, re-wrote a chat service (4 tables, 7 API endpoints) with 100% test coverage in about 20-25 hours. 
+## The Full Journey
+<v-clicks>
+
+- **Ideas** → Requirements
+- **Stories** → Understanding  
+- **Problem solving** → Architecture
+- **Team communication** → Coordination
+- **Testing** → Quality assurance
+- **Documentation** → Knowledge transfer
+- **Deployment** → Customer value
+
+</v-clicks>
+
+</div>
+<div>
+
+<v-click>
+
+## Where LLMs Excel
+- **Language** understanding
+- **Communication** enhancement
+- **Documentation** generation
+- **Story** clarification
+- **Problem** breakdown
+- **Team** coordination
+
+</v-click>
+
+<v-click>
+
+### The Reality
+Code is maybe **20%** of the software journey
+
+</v-click>
+
+</div>
+</div>
+
+<!--
+This is crucial for managers to understand.
+AI isn't just about coding faster - it's about improving the entire software development lifecycle.
+Communication is often the biggest bottleneck in software teams.
+-->
+
+---
+transition: slide-left
+layout: center
+class: text-center
+---
+
+# Part 1: The New Reality
+
+<div class="text-6xl font-bold gradient-text">
+The Cost of Software is Cratering
+</div>
+
+<!--
+Dramatic pause here.
+This is the big strategic insight for managers.
 -->
 
 ---
 
-## How it works
+# The Cost Revolution
 
-- Example from Tabnine docs ... all AI code assistants work similarly
+<div class="grid grid-cols-2 gap-8 h-4/5">
+<div>
 
-<img src="/images/tabnine-rag-arch.avif" alt="Tabnine RAG Architecture" style="width: 80%; max-height: 70vh; object-fit: contain;" />
+## Traditional Development
+- High cost per line of code
+- Precious, must be protected
+- Months to refactor
+- Fear of change
+
+<v-click>
+
+## AI-Enhanced Development
+- Near-zero marginal cost
+- Disposable and replaceable
+- Hours to rewrite
+- Embrace change
+
+</v-click>
+
+</div>
+<div class="flex items-center">
+
+<img src="./images/ai-processor.jpg" class="rounded-lg shadow-xl max-h-80" />
+
+</div>
+</div>
+
+<v-click>
+
+<div class="mt-2 p-3 bg-yellow-500/10 border-2 border-yellow-500/50 rounded-lg text-center">
+<span class="text-lg">⚡</span> <span class="text-base">Those who move fast RIGHT NOW have a massive advantage</span>
+</div>
+
+</v-click>
 
 <!--
-The customization power for an AI code assistant derives from retrieval augumented generation or RAG. RAG generates code based on similar pieces of code that already exist in your codebase, helping the AI assistant to generate code that matches your team's style.
+This is the strategic message for managers.
+Software used to be expensive to create and change.
+Now it's cheap - this changes EVERYTHING.
+The window won't stay open forever.
+-->
 
-RAG works in two ways with Tabnine. Auto-completion prompts use a locally available RAG index stored using a Quadrant vector database maintained in a docker image on your local machine. The enterprise product enables a more powerful index held on the Tabnine server, which can either be a SaaS product or self-hosted. 
+---
+transition: slide-up
+---
+
+# One-Person Companies Are Real
+
+<v-clicks>
+
+- **I have an army** - Junior devs and support staff at my fingertips
+- **24/7 availability** - AI doesn't sleep
+- **Instant scaling** - Need 10x output? Just parallelize
+- **Quality + Speed** - No longer a tradeoff
+
+</v-clicks>
+
+<v-click>
+
+## Real Example
+Built a complete analytics agent in 20 minutes during a client call:
+- SQL queries
+- Data visualization
+- Analysis reports  
+- Slack integration
+
+Client reaction: "**Dumbfounded it was that easy**"
+
+</v-click>
+
+<!--
+This challenges their assumptions about team size.
+The 20-minute demo story is powerful - use it.
+Emphasize: This isn't the future, it's NOW.
+-->
+
+---
+transition: fade-out
+layout: center
+---
+
+# Part 2: What This Means for Your Business
+
+<!--
+Transition slide - let them digest Part 1.
+Now we get into practical implications.
 -->
 
 ---
 layout: two-cols
+transition: slide-left
 ---
 
-## Usage
+# The 10x Developer is Real
 
-- Different people like to use the tool in different ways
-- 3 primary modes of use, as tracked by TabNine
-    - **Inline usage** - Type in the IDE as you normally would, use enhanced tab completion to add in proposed code the AI suggests. This is what I primarily use.
-    - **Chat usage** - Ask a series of questions to the AI in chat mode. Insert code from those questions as appropriate. 
-    - **Agent usage** - Ask an agent to complete a task for you. Correct the results. 
+But not what you think...
+
+::left::
+
+## It's NOT About:
+- Typing faster
+- Working longer hours
+- Being a "genius"
+- Writing more code
 
 ::right::
 
-<div class="ml-4" style="display: flex; align-items: center; height: 100%;">
-  <img src="/images/actual-usage.png" alt="Actual AI usage statistics" style="width: 100%" />
+<v-click>
+
+## It's About:
+- Eliminating friction
+- Focusing on value
+- Automating repetition
+- Thinking strategically
+
+</v-click>
+
+<v-click>
+
+<div class="mt-12 col-span-2">
+
+## My Favorite Example
+"I'm not the bad guy anymore - my bot handles code reviews!"
+
 </div>
 
+</v-click>
+
 <!--
-In general, there are three ways to interact with code. First you can use it as an advanced code completion tool. Just like bash will try to autocomplete paths that you want to write, AI can be used to suggest completions on code that you are currently typing. 
-
-Second, you can chat with it. This is exactly the same experience as chatting with ChatGPT or Perplexity, except that the models are fine-tuned by your provider to focus on code knowledge and the answers can be generated in the context of your own codebase.
-
-Finally, there are agents, which are the newest capability just coming online. Agents can be made for specific purposes, such as creating test plans for a piece of code, or for converting Jira issues into proposed PRs. 
-
-We can see some real data from my team here, and that different people on the team use the tool indifferent ways. I'm the guy there with the very high auto-completion usage; I find tab-completion natural to my coding style and a very effective way to rapidly fill in boilerplate code. 
+Dispel the myth of the 10x developer.
+It's about leverage, not superhuman abilities.
+The bot example shows how AI improves team dynamics.
 -->
 
 ---
+transition: slide-up
+---
 
-# What AI can and cannot do - Strengths
+# What Disappears with AI
 
-- **Functions**. Creating small self-contained chunks of code; not only functions but also methods, objects or classes. Example prompts:
-> Create a pydantic class from the json specification in path/to/file.json
+<div class="grid grid-cols-3 gap-6">
+<div v-click class="card">
 
-> Create a method on this class that converts it to this other class
+### Repetitive Reviews
+- "Where are the tests?"
+- Style violations
+- Missing documentation
 
-> Create a function that takes a list of this class as a parameter and writes them all to the databse
+</div>
+<div v-click class="card">
 
-- Creating full test coverage for these functions, methods and objects/classes. 
-  - Tabnine has an agent specifically for this.
-  - Adding test cases into an existing table test. Just ask:
-  > what test cases am I missing in test_function_name
+### Glue Code
+- Integration boilerplate
+- Data transformations
+- API mappings
 
-- Following concrete examples within the same context. 
-> Create a function that takes a list of this class as a parameter and writes them all to the database following the example of the function at line 123 \[of path/to/file.py\]
+</div>
+<div v-click class="card">
+
+### Mental Load
+- Remembering conventions
+- Tracking updates
+- Context switching
+
+</div>
+</div>
+
+<v-click>
+
+<div class="mt-12 text-center text-3xl">
+What remains? <span class="gradient-text font-bold">Creative Problem Solving</span>
+</div>
+
+</v-click>
+
+<style>
+.card {
+  @apply p-6 bg-gray-800 rounded-lg border border-gray-700;
+}
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400;
+}
+</style>
 
 <!--
-Especially if you are new to coding with AI, make sure that you ask it questions that are more likely to give you useful answers. If you can start from any sort of documentation, describing functions that you want to exist, AI stands a good change of creating them correctly in one go, if they are not too complex. If you have existing functions and examples of testing already in place in your RAG vector graph, there is a pretty good chance that AI will be able to create useful tests in one go. 
-
-In addition to trying it out as a code generation tool, another way to ease into AI usage is by asking it to discuss code. For me, with limited front end experience, it does a great job explaining the nuances of mobile code written in ReactNative. You can easily ask follow up questions about libraries or functions that you see used to determine what they are doing in the context of a function. 
+These are concrete things managers can understand.
+Each disappearing task = more time for value creation.
+Emphasize: Humans do human work, AI does robot work.
 -->
 
 ---
-
-# What AI can and cannot do - Weaknesses
-
-- **Syntax**. AI tools will occasionally create code that does not compile or run.
-- **Using the correct version.** Because SQLAlchemy 1.4 has been out for much longer than SQLAlchemy 2.0, if you ask for links to documentation you will often get links to SQLAlchemy 1.4, even when prompting:
-> "Using SQLAlchemy 2.0, create a function that does this"
-
-- **Imagining functions.** This is particularly frustrating when it imagines a useful function in a library that simply doesn't exist. When prompted to ask where in code is this function implemented, you may get a link to a completely irrelevant chunk of code. 
-
-<!--
-Be prepared to face the limitations of AI tools, and don't butt your heads into them. There are ways around all of these limitations. To check correctness of the code that is written, it is imperative to enable a tight code -> test cycle. If you write some code, how fast can you test it?
-
-Also, prompt management can help you to avoid certain problems by clarifying information during queries that you don't want to type out each time. For example, in our Python project we are using SQLAlchemy 2.0. We can add a global prompt that will attach this version information to any question that any user in the organization asks. 
--->
-
+transition: fade
 ---
 
-# What AI can and cannot do - Maybe ???
+# Rapid Prototyping: The Game Changer
 
-- **Creating code from diagrams**. Specifically SQLAlchemy classes from an ER diagram; either the mermaid-markdown representation or an screenshot of the rendered image.
-- **Complex relationships**. Especially infrastructure as code. 
-    - Does not understand templating rules in helm charts.
-    - Rarely understands how to use local terraform modules.
-- **YAML, JSON and bash**. Tabnine in particular does not index these files for RAG.
-    - I have had success building JSON schemas from JSON objects.
-    - I have not had much success with using yaml files along with the Helm terraform provider. Tabnine can't understand the yaml syntax!
+<div class="text-xl mb-6 text-center italic">
+"Working is more valuable than perfect"
+</div>
 
-<!--
-Here are some notes on things that AI may be able to do, but I've had trouble with. In general, some of the more "out of the box" things that I've seen out there on the big internet don't really work that well.
-
-These are some of the things that are likey to be big wins in future model updates and improvements; I'll make sure to come back and test these as the next generation models get rolled out. 
--->
-
----
-layout: two-cols
----
-
-# What AI can and cannot do - Expectations
-
-- AI will solve your easy problems, not your hard problems.
-- Easy problem: writing basic code in a language you don't know well!
-  - Now your FE team can make probably-useful contributions to backend and vice-versa. 
-- Example. My problem: split a yaml file with team configurations into one file per team. 
-  - Do it manually or automate?
-  - Copilot got it right first try with a bash script. Total time spent: approx 1 minute. 
-  - I beat the meme!
-
-::right::
-
-<div class="ml-4" style="display: flex; align-items: center; height: 100%;">
-  <img src="/images/code-automation-meme.webp" alt="Actual AI usage statistics" style="width: 100%" />
+<div class="flex justify-center">
+<img src="./images/prototype.jpg" class="rounded-lg shadow-2xl max-h-96 w-auto" />
 </div>
 
 <!--
-AI is great at doing something that 10,000 other engineers thave done before, but you have not done before. There are often a lot of tasks that use a library you are not familiar with or that you might do in a different language where AI can provide you a 90% solution near instantaneosly. 
-
-Here is an exammple from my own experience. I had to split a single yaml file container information on teams into over 20 individual yaml files. I could have done this manually in a few minutes, but like any good over-engineer, I wanted to automate this. 
-
-With Copilot, I was able to do this instantly, getting  a bash script using yq that got it right on the first try. Not a hard problem, but a great example of saving half an hour. 
+This is where AI really shines for business value.
+Set up the story about building during calls.
 -->
 
-
+---
+transition: slide-left
 ---
 
-# How to make AI work better - Linting
+# The 20-Minute Analytics Agent
 
-- The single largest frustration of the AI tools is imagining functionality in a library that does not exist. 
-- Initally, I spent a lot of time looking at docs to make sure that what the AI suggested is actually possible. But a strong compiler or type checker + IDE plugins can tell you much faster. 
-- A static type checker such as `mypy` is an example of a tools that, when applied through the IDE, will immediately tell you if the AI is making things up. Every language has these!
-- Syntax errors and non-standard created code can often be caught and corrected by linting tools. For python we use `flake8`, `black` and `isort` together. 
+<div class="grid grid-cols-2 gap-8">
+<div>
+
+<v-clicks>
+
+1. **Client calls** - "We need an analytics solution"
+2. **While they explain** - I'm building in Claude Code
+3. **10 minutes in** - Basic structure working
+4. **20 minutes** - Live demo with their data
+
+</v-clicks>
+
+<v-click>
+
+## What I Built:
+- SQL query generator
+- matplotlib visualizations  
+- Analysis summaries
+- Slack integration
+
+</v-click>
+
+</div>
+<div>
+
+<v-click>
+
+## Client Reaction:
+> "Dumbfounded it was that easy"
+
+</v-click>
+
+<v-click>
+
+## The Value:
+Not the code, but the **immediate tangibility**
+
+</v-click>
+
+</div>
+</div>
 
 <!--
-AI hallucinations manifest themselves in code assistant output. An AI can suggest functions that do not exist in the package you are using, but belong to similar package in the same or even another language. 
-
-The easiest way to catch these issues without resorting to reading documentation yourself are linting tools. Every language has real-time linting tools that can be incorporated into an IDE to flag incorect AI output immediately.
-
-What do you do when the AI is suggesting that you do something that does not work? I take advantage of the different model providers (Claude 3.7, ChatGPT-4o, Command R+), switch to a different model and ask again. 
+This story is GOLD. Use the drama of building live.
+Emphasize: They SAW their idea come to life.
+This changes the entire dynamic of requirements gathering.
 -->
 
 ---
+transition: slide-up
+layout: image-right
+image: ./images/business-team.jpg
+---
 
-# How to make AI work better - Do it the same way
+# From Napkin to Prototype
 
-- You can do things a lot of ways in a lot of languages. An example from our codebase is that there are two ways (there are actually more) to do dependency injection in FastAPI:
-```python
-@router.get("/events/{user_id}")
-async def get_fte_events(
-  handler: Handler = Depends(get_handler)
-  ...
-)
-```
-vs. 
-```python
-@router.get("/events/{user_id}")
-async def get_fte_events(
-  handler: Annotated(Handler, get_handler)
-  ...
-)
-```
+<v-clicks>
 
-- You can use AI to eliminate these different coding styles!
+- **Draw on napkin** (or Excalidraw)
+- **Photo → AI** with vision capabilities
+- **Specify tools** - "Use React + Tailwind"
+- **Get working UI** in minutes
 
-> Find one instance of FastAPI dependency injection in this repository using the pattern 'handler: Handler = Dependency(get_handler)' and replace it to use Annotated instead."
+</v-clicks>
+
+<v-click>
+
+## The Magic:
+AI understands design systems and component libraries
+
+## The Result:
+Clients can "play with it" immediately
+
+</v-click>
 
 <!--
-Retrieval augmented generation is great for helping your code look consistent. But if your code does not look consistent in the first place, you will end up with problems. If there is something that can be written two different ways, and is written two different ways throughout your codebase, you will see all variety of interpolations between those two ways.
-
-Do it the same way every time to get the same, expected results every time.
+Visual thinking becomes real products.
+This is especially powerful for non-technical stakeholders.
+Mention design systems - consistency for free.
 -->
 
-- Don't ask the AI to do too much at once. Give it one simple task to accomplish at a time.
-- Give the AI examples to follow whenever possible, by pointing it to specific code snippits you want it to follow. 
-> Create a unit test for this_function in path/to/file.py following the same pattern used on line 123 of path/to/test_file.py
-
-- Even better, ensure that what you are creating is demonstrated the same way using the same pattern in the same file!
-
+---
+transition: fade-out
+layout: center
 ---
 
-# Development
+# Part 3: Systems Thinking + AI
 
-- Not just code
-- Group of Systems
-  - Idea -> Customer
-- Examples
-  - Continuous Discovery
-  - Tickets/Organization
-  - Prototypes
-  - Preview
-  - Feedback
-
----
-
-# How Jim sees LLMS
-
-- Human augmentation
-- Just like the phone next to you
-  - gps vs maps
-  - google
-  - ask AI
-- Democratize of Knowledge
-- Brainstorming Partner
-- Leverage/Amplification
-- Fit them into the systems
-
----
-
-
-# Communication
-
-- Unbiased
-- Effective communication
-- cleaner status updates
-- Code reviews
-- Organization of tasks
-  - jira
-  - task boards etc
-  - MCPs we can talk about later
-
----
-
-# Example:
-- Agent that interviews the team
-- Compiles the standup information
-
-Before:
-- 30 minute standups
-- Disorganized
-- No notes/History
-
-After:
-- 5 minute standups
-- highlights are organized
-- speak up if ai got it wrong
-
-
----
-
-# The Complexity Gap: Real Examples
-
-As we increase complexity the chance of success drops
-
-insert graph of the complexity
-
-## Simple Tasks: High Success Rate
-Give me basic CRUD endpoints for this user model
-
-# Why it works
-- Internet is littered with examples
-- task is simple
-- Nothing "new" to think about
-
----
-layout: two-cols
----
-
-## Complex Tasks: Success Drops
-
-Write a function to calculate net price based on 
-- a mix of customer-specific rules
-- fallback brand-level defaults
-- a pricing floor
-- and special holiday exceptions from a config object
-- return errors if any constraint is violated.
-
-# Why it doesnt work
-- too much wiggle room
-- not specific enough
- 
-::right::
-
-<div class="ml-4">
-  <img src="/images/small_jump.png" class="rounded shadow-xl" />
-  <img src="/images/big_jump.png" class="rounded shadow-xl" />
+<div class="text-xl">
+Breaking complexity into high-success-rate steps
 </div>
 
-
-
-
-
-
----
-
-# Rapid Prototyping with AI
-## Case Study: Math Formula Visualization
-- Complex MILP model visualization
-- From concept to interactive UI in minutes
-- Stakeholder feedback during live calls
-
-## Vision (Multi Modal)
-- napkin drawing
-- design systems
+<!--
+Now we get into the strategic thinking part.
+This is how you scale AI usage beyond individual tasks.
+-->
 
 ---
+transition: slide-left
+---
 
-## Streamlit Success Stories
-- What is a streamlit
-- Quick prototypes during customer calls
-- Interactive data exploration
-- Rapid iteration on business logic
+# Think in Systems
 
-::right::
+<div class="grid grid-cols-2 gap-8">
+<div>
 
-<div class="ml-4">
-  <img src="/images/prototype.jpg" class="rounded shadow-xl" />
+## Example: Code Coverage Bot
+
+**Goal:** Keep coverage above 60%
+
+**System Steps:**
+1. Watch commits
+2. Analyze coverage delta
+3. Suggest tests
+4. Notify on Slack
+5. Track improvements
+
+</div>
+<div v-click>
+
+## Why This Works
+
+- Each step is measurable
+- Clear inputs/outputs
+- No ambiguity
+- Easy to debug
+- Humor helps! 😄
+
+> "Your commit dropped coverage by 5%. The bot is disappointed. 🤖"
+
+</div>
 </div>
 
----
-
-# Modern AI-Enhanced Workflows
-
-## Effective Prompting
-- System thinking approach
-- Breaking down complex tasks
-- Iterative refinement
-
-## add an image from the effective agents page
+<!--
+Systems thinking + AI = powerful automation.
+Note the humor - makes the bot feel less threatening.
+Break complex problems into simple, measurable steps.
+-->
 
 ---
-
-# Have AI interview you
-- communicate better
-- create a more concise prompt
-
----
-layout: two-cols
+transition: fade
+layout: center
 ---
 
-## Integration Examples
-- Code generation and review
-- Documentation assistance
-- Test case generation
+# Gall's Law
 
-::right::
-
-<div class="ml-4">
-  <img src="/images/workflow.jpg" class="rounded shadow-xl" />
+<div class="text-3xl text-center mb-12 italic">
+"A complex system that works is invariably found to have evolved from a simple system that worked."
 </div>
 
----
+<v-click>
 
-# Testing Flow
-
-- write the code first
-- AI review, generate answers
-
----
-
-# Cons
-
-- Amplification
-  - Amplifies errors too
-- Easy to get "lazy"
-  - Systems approach/Checklist
-- Over estimating ability
-  - No common sense
-
----
-layout: two-cols
----
-
-# Bonus: MCP
-- Tools
-- Model Context protocol
-  - Wealth of things available
-- Agent design
-- Presentation was done with cursor
-- Images MCP
-
-::right::
-
-<div class="ml-4">
-  <img src="/images/llms_agents.png" class="rounded shadow-xl" />
+<div class="text-2xl text-center mb-8">
+"A complex system designed from scratch never works and cannot be patched up to make it work."
 </div>
 
----
+</v-click>
 
-# Chaining
+<v-click>
 
-<div class="ml-4">
-  <img src="/images/chaining.png" class="rounded shadow-xl" />
-</div>
----
-
-# Iteration (Agent + State)
-
-<div class="ml-4">
-  <img src="/images/agent_iterative_style.png" class="rounded shadow-xl" />
+<div class="text-xl text-center opacity-80">
+— John Gall, *Systemantics*
 </div>
 
+</v-click>
+
+<v-click>
+
+<div class="mt-12 p-6 bg-blue-500/10 border-2 border-blue-500/50 rounded-lg text-center">
+<span class="text-lg">💡</span> <span class="text-lg">Start simple, let complexity emerge naturally</span>
+</div>
+
+</v-click>
+
+<!--
+This is fundamental to AI adoption.
+Start with simple automations and build complexity gradually.
+Your standup bot is a perfect example - simple problem, simple solution, immediate value.
+-->
+
+---
+transition: slide-up
 ---
 
-# Bonus 2: Mermaid Diagrams
-- Picture work 1000 words
-- Communicate better
-- Demo a mermaid diagram
+# The Secret Sauce: Pre-commit Hooks
+
+<div class="text-center mb-8">
+<div class="text-6xl mb-4">🛡️</div>
+<div class="text-2xl">Safety nets for AI-generated code</div>
+</div>
+
+<v-clicks>
+
+- **Linting** - Catches syntax issues
+- **Type checking** - Prevents type errors
+- **Formatting** - Ensures consistency
+- **Test running** - Validates changes
+
+</v-clicks>
+
+<v-click>
+
+## Result:
+AI quirks get caught before they become problems
+
+</v-click>
+
+<!--
+This addresses the "but AI makes mistakes" concern.
+Show that we can have speed AND safety.
+Technical managers will appreciate this.
+-->
 
 ---
+transition: fade
+layout: center
+---
 
-# Team and Career Impact
-- get on the train, don't miss it
+# Part 4: The Human Element
 
-## Knowledge Democratization
-- Faster onboarding
-- Reduced knowledge silos
-- Improved code quality
+<div class="text-xl opacity-80">
+What AI amplifies (good and bad)
+</div>
 
-## Productivity Gains
-- 4-10x speedup on routine tasks
-- Faster prototyping
-- Better stakeholder communication
+<!--
+Critical section - address fears and concerns.
+Be honest about the challenges.
+-->
+
+---
+transition: slide-left
+---
+
+# AI is an Amplifier
+
+<div class="grid grid-cols-2 gap-12 mt-8">
+<div>
+
+## Amplifies Good Habits ✅
+- Clear thinking → Clearer code
+- Good communication → Better prompts
+- System design → Scalable solutions
+- Testing discipline → Comprehensive coverage
+
+</div>
+<div v-click>
+
+## Amplifies Bad Habits ❌
+- Laziness → Unreviewed code
+- Poor understanding → Technical debt
+- No verification → Subtle bugs
+- Impatience → Fragile systems
+
+</div>
+</div>
+
+<v-click>
+
+<div class="mt-12 p-6 bg-red-500/10 border-2 border-red-500/50 rounded-lg text-center">
+<span class="text-2xl">⚠️</span> "If you can't explain it, you don't understand it"
+</div>
+
+</v-click>
+
+<!--
+Be honest about the dangers.
+AI makes it easy to create code you don't understand.
+This is the biggest risk for teams.
+-->
+
+---
+transition: slide-up
+---
+
+# Warning Signs for Managers
+
+<div class="grid grid-cols-2 gap-8">
+<div>
+
+<v-clicks>
+
+1. **Developers can't explain their code**
+   - Red flag: "The AI wrote it"
+   - Good sign: "I used AI to implement my design"
+
+2. **No code reviews happening**
+   - AI doesn't replace human judgment
+   - Reviews catch conceptual issues
+
+</v-clicks>
+
+</div>
+<div>
+
+<v-clicks>
+
+3. **Velocity without understanding**
+   - Moving fast in wrong direction
+   - Technical debt accumulation
+
+4. **Over-reliance indicators**
+   - Can't debug without AI
+   - No architectural thinking
+
+</v-clicks>
+
+</div>
+</div>
+
+<!--
+Give managers concrete things to watch for.
+These are early warning signs of problems.
+Emphasize: AI is a tool, not a replacement for thinking.
+-->
+
+---
+transition: fade-out
+layout: center
+---
+
+# Part 5: Practical Next Steps
+
+<div class="text-xl">
+How to start tomorrow
+</div>
+
+<!--
+End with actionable advice.
+They should leave knowing what to DO.
+-->
+
+---
+transition: slide-left
+---
+
+# Prompt Engineering 101
+
+<div class="text-center text-2xl mb-8">
+"Make the LLM interview you"
+</div>
+
+<v-clicks>
+
+- **Don't just ask** - Have a conversation
+- **Provide context** - Background, constraints, goals
+- **Iterate** - First output is rarely final
+- **Teach your style** - Share examples of good output
+
+</v-clicks>
+
+<v-click>
+
+## Example Progression:
+1. ❌ "Build me a dashboard"
+2. ✅ "I need a dashboard for oil & gas metrics"
+3. 🚀 "Here's our design system, build a dashboard showing production metrics with these specific KPIs..."
+
+</v-click>
+
+<!--
+Practical advice they can use immediately.
+The interview concept is powerful - explain it.
+Show the progression from bad to great prompts.
+-->
+
+---
+transition: slide-up
+---
+
+# MCPs: The Superpowers
+
+<div class="text-center mb-8">
+<div class="text-lg opacity-80">Model Context Protocol</div>
+<div class="text-3xl font-bold">Connect AI to your tools</div>
+</div>
+
+<v-clicks>
+
+- **What:** Standardized way for AI to use tools
+- **Why:** AI can interact with your actual systems
+- **Example:** AI reads Jira → updates tickets → notifies Slack
+
+</v-clicks>
+
+<v-click>
+
+## The Power:
+Instead of copy-pasting, AI directly integrates with your workflow
+
+</v-click>
+
+<!--
+Keep MCP explanation simple for managers.
+Focus on the business value, not technical details.
+It's about integration and workflow.
+-->
+
+---
+transition: fade-out
+layout: center
+class: text-center
+---
+
+# Key Takeaways
+
+<v-clicks>
+
+1. **AI won't replace developers**  
+   But developers using AI will replace those who don't
+
+2. **The cost of software has cratered**  
+   Massive opportunities for those who adapt
+
+3. **It's about amplification, not replacement**  
+   10x productivity is real and achievable
+
+4. **Start small, think in systems**  
+   Even simple automations compound
+
+5. **The time is NOW**  
+   Early movers have exponential advantages
+
+</v-clicks>
+
+<!--
+Reinforce the main messages.
+Each point should stick in their memory.
+End on the urgency note.
+-->
 
 ---
 layout: center
@@ -495,4 +867,22 @@ class: text-center
 
 # Thank You
 
-Jim Vogel (Gravitate) & Daniel Hartig (O2X)
+<div class="text-2xl mb-8">Questions?</div>
+
+<div class="text-lg opacity-80">
+Jim Vogel<br>
+Lead Developer @ Gravitate<br>
+<br>
+AI Stack: Claude Code, Cursor, Custom Agents
+</div>
+
+<div class="mt-12 text-sm opacity-60">
+Remember: It's not about the tools, it's about the transformation
+</div>
+
+<!--
+Open the floor for questions.
+Be ready for skepticism and concerns.
+Have stories ready for common objections.
+Emphasize: transformation over tools.
+-->

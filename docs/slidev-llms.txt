@@ -1,0 +1,1777 @@
+TITLE: Sharing SSR-Friendly State with Provide/Inject Pattern
+DESCRIPTION: These TypeScript snippets present an SSR-friendly pattern for sharing application-level state using Vue's `provide` and `inject` mechanism. A `createMyState` function returns an object with an `install` method to provide the state to the app, and `useMyState` is a composable to inject it. This ensures each SSR request gets a fresh instance of the state, preventing cross-request state pollution.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_31
+
+LANGUAGE: TypeScript
+CODE:
+```
+export const myStateKey: InjectionKey<MyState> = Symbol('state')
+
+export function createMyState() {
+  const state = {
+    /* ... */
+  }
+
+  return {
+    install(app: App) {
+      app.provide(myStateKey, state)
+    },
+  }
+}
+
+export function useMyState(): MyState {
+  return inject(myStateKey)!
+}
+```
+
+LANGUAGE: TypeScript
+CODE:
+```
+// main.ts
+const App = createApp(App)
+
+app.use(createMyState())
+```
+
+LANGUAGE: TypeScript
+CODE:
+```
+// A.vue
+
+// use everywhere in your app
+const state = useMyState()
+```
+
+----------------------------------------
+
+TITLE: Initializing Slidev Project with npm
+DESCRIPTION: This command uses `npm init` to quickly set up a new Slidev project. It's the recommended way to start a new Slidev presentation using npm.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/packages/create-app/README.md#_snippet_0
+
+LANGUAGE: bash
+CODE:
+```
+npm init slidev
+```
+
+----------------------------------------
+
+TITLE: Extending Vue Application in Slidev (TypeScript)
+DESCRIPTION: This snippet demonstrates how to configure the Vue 3 application within Slidev by creating a `setup/main.ts` file. It uses `defineAppSetup` to access the Vue `app` instance, allowing for the installation of custom Vue plugins or other initializations before the application starts.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/custom/config-vue.md#_snippet_0
+
+LANGUAGE: TypeScript
+CODE:
+```
+import type { Plugin } from 'vue'
+declare const YourPlugin: Plugin
+// ---cut---
+import { defineAppSetup } from '@slidev/types'
+
+export default defineAppSetup(({ app, router }) => {
+  // Vue App
+  app.use(YourPlugin)
+})
+```
+
+----------------------------------------
+
+TITLE: Initializing a New Slidev Project Locally
+DESCRIPTION: This command is used to initialize a new Slidev project in your local environment. It requires Node.js version 18 or higher to be installed on your system. Executing this command will set up the necessary project structure and dependencies, preparing your workspace for creating presentations.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/README.md#_snippet_0
+
+LANGUAGE: bash
+CODE:
+```
+npm init slidev
+```
+
+----------------------------------------
+
+TITLE: Implementing a Basic `useFetch` Composable
+DESCRIPTION: This TypeScript snippet provides a basic implementation of a `useFetch` composable function. It uses `shallowRef` to store the fetched data and any potential errors, performing a simple `fetch` request and updating the refs upon success or failure. It returns an object containing `data` and `error` refs, allowing consumers to react to the fetch outcome.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_23
+
+LANGUAGE: TypeScript
+CODE:
+```
+export function useFetch<R>(url: MaybeRef<string>) {
+  const data = shallowRef<T | undefined>()
+  const error = shallowRef<Error | undefined>()
+
+  fetch(unref(url))
+    .then(r => r.json())
+    .then(r => data.value = r)
+    .catch(e => error.value = e)
+
+  return {
+    data,
+    error,
+  }
+}
+```
+
+----------------------------------------
+
+TITLE: Handling Template Ref Changes with `watch`
+DESCRIPTION: This TypeScript snippet shows an alternative approach to handling template refs by using `watch` instead of `onMounted`. By watching the template ref, developers can unify the handling of initial DOM access and subsequent changes to the ref (e.g., if the element is conditionally rendered or replaced). This allows for consistent cleanup and re-initialization of side effects tied to the DOM element.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_27
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { defineComponent, ref, watch } from 'vue'
+
+export default defineComponent({
+  setup() {
+    const element = ref<HTMLElement | undefined>()
+
+    watch(element, (el) => {
+      // clean up previous side effect
+      if (el) {
+        // use the DOM element
+      }
+    })
+
+    return { element }
+  },
+})
+```
+
+----------------------------------------
+
+TITLE: Defining Slides with Separators - Slidev Markdown
+DESCRIPTION: This snippet demonstrates how to separate individual slides in a Slidev presentation using three hyphens (`---`) on a new line. It also shows how to embed basic Markdown, TypeScript code blocks, and HTML/Vue components within slides, illustrating the mixed content capabilities.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/syntax.md#_snippet_0
+
+LANGUAGE: Markdown
+CODE:
+```
+# Title
+
+Hello, **Slidev**!
+
+---
+
+# Slide 2
+
+Use code blocks for highlighting:
+
+```ts
+console.log('Hello, World!')
+```
+
+---
+
+# Slide 3
+
+Use UnoCSS classes and Vue components to style and enrich your slides:
+
+<div class="p-3">
+  <Tweet id="..." />
+</div>
+```
+
+----------------------------------------
+
+TITLE: Defining Typed Context with `InjectionKey` in Vue
+DESCRIPTION: This TypeScript snippet demonstrates how to define a typed context for Vue's `provide` and `inject` using `InjectionKey<T>`. By creating an `InjectionKey` with a specific interface (`UserInfo`), it ensures type safety when providing and injecting values across components, preventing common type-related errors and improving code maintainability.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_28
+
+LANGUAGE: TypeScript
+CODE:
+```
+// context.ts
+import type { InjectionKey } from 'vue'
+
+export interface UserInfo {
+  id: number
+  name: string
+}
+
+export const injectKeyUser: InjectionKey<UserInfo> = Symbol('user')
+```
+
+----------------------------------------
+
+TITLE: Implementing `useTitle` Composable in Vue.js
+DESCRIPTION: This snippet demonstrates the implementation of a `useTitle` composable function in Vue.js using TypeScript. It leverages `ref` to manage the document title and `watch` to synchronize changes, ensuring the title updates reactively. It accepts a `MaybeRef<string | null | undefined>` and returns a `Ref<string>`.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_18
+
+LANGUAGE: TypeScript
+CODE:
+```
+import type { MaybeRef } from '@vueuse/core'
+import { ref, watch } from 'vue'
+
+export function useTitle(
+  newTitle: MaybeRef<string | null | undefined>,
+) {
+  const title = ref(newTitle || document.title)
+
+  watch(title, (t) => {
+    if (t != null)
+      document.title = t
+  }, { immediate: true })
+
+  return title
+}
+```
+
+LANGUAGE: HTML
+CODE:
+```
+<-- 1. use the user provided ref or create a new one
+
+<-- 2. sync ref changes to the document title
+```
+
+----------------------------------------
+
+TITLE: Configuring Slidev Presentation Properties
+DESCRIPTION: This YAML frontmatter block defines global properties for a Slidev presentation, including the theme, background image, title, and various feature settings like drawings persistence, slide transitions, and MDC syntax enablement. It sets up the initial environment for the slides.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/starter/slides.md#_snippet_0
+
+LANGUAGE: yaml
+CODE:
+```
+theme: seriph
+background: https://cover.sli.dev
+title: Welcome to Slidev
+info: |
+  ## Slidev Starter Template
+  Presentation slides for developers.
+
+  Learn more at [Sli.dev](https://sli.dev)
+class: text-center
+drawings:
+  persist: false
+transition: slide-left
+mdc: true
+```
+
+----------------------------------------
+
+TITLE: Starting Slidev Development Server (pnpm)
+DESCRIPTION: This command initiates the Slidev development server, making the presentation accessible via a local URL. It typically enables live reloading, reflecting changes made to the slides.md file instantly.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/packages/create-app/template/README.md#_snippet_1
+
+LANGUAGE: Shell
+CODE:
+```
+pnpm dev
+```
+
+----------------------------------------
+
+TITLE: Configuring Slidev Presentation with Frontmatter (YAML)
+DESCRIPTION: This YAML frontmatter configures the initial settings for a Slidev presentation. It defines the theme, background image, CSS classes for the current slide, presentation information, transition effect, and the main title. The `mdc: true` property enables Markdown Component support.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/packages/slidev/template.md#_snippet_0
+
+LANGUAGE: yaml
+CODE:
+```
+theme: seriph
+# random image from a curated Unsplash collection by Anthony
+# like them? see https://unsplash.com/collections/94734566/slidev
+background: https://cover.sli.dev
+# apply any unocss classes to the current slide
+class: 'text-center'
+# some information about the slides, markdown enabled
+info: |
+  ## Slidev Starter Template
+  Presentation slides for developers.
+
+  Learn more at [Sli.dev](https://sli.dev)
+transition: slide-left
+title: Welcome to Slidev
+mdc: true
+```
+
+----------------------------------------
+
+TITLE: Implementing Typed Provide/Inject Across Vue Components
+DESCRIPTION: These TypeScript snippets illustrate the usage of typed `provide` and `inject` in Vue components. The `parent.vue` component uses `provide` with a defined `InjectionKey` to make `UserInfo` available, while `child.vue` uses `inject` with the same key to retrieve the typed `UserInfo` object. This pattern ensures type-safe data sharing between ancestor and descendant components.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_29
+
+LANGUAGE: TypeScript
+CODE:
+```
+// parent.vue
+import { provide } from 'vue'
+import { injectKeyUser } from './context'
+
+export default {
+  setup() {
+    provide(injectKeyUser, {
+      id: '7', // type error: should be number
+      name: 'Anthony',
+    })
+  },
+}
+```
+
+LANGUAGE: TypeScript
+CODE:
+```
+// child.vue
+import { inject } from 'vue'
+import { injectKeyUser } from './context'
+
+export default {
+  setup() {
+    const user = inject(injectKeyUser)
+    // UserInfo | undefined
+
+    if (user)
+      console.log(user.name) // Anthony
+  },
+}
+```
+
+----------------------------------------
+
+TITLE: Creating a New Slidev Project Locally with Yarn
+DESCRIPTION: This command initializes a new Slidev project using Yarn. This process provides an alternative to npm for project setup and requires Node.js version 18.0 or higher.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/index.md#_snippet_2
+
+LANGUAGE: bash
+CODE:
+```
+yarn create slidev
+```
+
+----------------------------------------
+
+TITLE: Normalizing and Unwrapping Refs with `ref()` and `unref()`
+DESCRIPTION: This TypeScript snippet defines `MaybeRef<T>` and demonstrates the use of `ref()` and `unref()` for handling reactive values. `ref(arg)` normalizes any `MaybeRef` into a `Ref<T>`, while `unref(arg)` extracts the raw value from a `MaybeRef`, whether it's a `Ref` or a plain value. This is useful for consistently working with reactive and non-reactive data.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_20
+
+LANGUAGE: TypeScript
+CODE:
+```
+type MaybeRef<T> = Ref<T> | T
+
+function useBala<T>(arg: MaybeRef<T>) {
+  const reference = ref(arg) // get the ref
+  const value = unref(arg) // get the value
+}
+```
+
+----------------------------------------
+
+TITLE: Implementing a Counter with Computed Property in Vue SFC
+DESCRIPTION: This Vue 3 Single File Component (SFC) defines a reactive counter using `ref` and a `computed` property that doubles the counter's value. It includes methods to increment and decrement the counter, displayed with interactive buttons. This snippet serves as a basic example for integrating live Vue components within a presentation framework like Slidev.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/vue-runner/slides.md#_snippet_0
+
+LANGUAGE: Vue
+CODE:
+```
+<script setup>
+import { computed, ref } from 'vue'
+const counter = ref(1)
+const doubled = computed(() => counter.value * 2)
+function inc() { counter.value++ }
+</script>
+
+<template>
+  <div class="select-none text-lg flex gap-4 items-center">
+    <span class="text-gray text-lg">
+      <span class="text-orange">{{ counter }}</span>
+      * 2 =
+      <span class="text-green">{{ doubled }}</span>
+    </span>
+    <button class="border border-main p2 rounded" @click="inc">+1</button>
+    <button class="border border-main p2 rounded" @click="counter -= 1">-1</button>
+  </div>
+</template>
+```
+
+----------------------------------------
+
+TITLE: Installing Slidev Project Dependencies (pnpm)
+DESCRIPTION: This command uses pnpm to install all required project dependencies. It is a crucial first step before running the Slidev development server to ensure all necessary packages are available.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/packages/create-app/template/README.md#_snippet_0
+
+LANGUAGE: Shell
+CODE:
+```
+pnpm install
+```
+
+----------------------------------------
+
+TITLE: Defining Slidev Presentation Pages with Markdown and Layout Directives
+DESCRIPTION: This snippet shows how to structure Slidev presentation slides using markdown. It includes page numbering, slide separation with '---', layout directives with frontmatter, and component embedding with the Tweet component.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/test/fixtures/markdown/sub/pages3-4.md#2025-04-23_snippet_0
+
+LANGUAGE: markdown
+CODE:
+```
+# Page 3
+
+---
+layout: cover
+---
+
+# Page 4
+
+<Tweet />
+```
+
+----------------------------------------
+
+TITLE: Creating a Reactive Addition Function Accepting Refs in Vue
+DESCRIPTION: This snippet defines an `add` function that accepts two `Ref<number>` arguments and returns a `computed` ref. This pattern ensures that the result `c` automatically updates whenever `a` or `b` (the input refs) change, making the function reactive.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_9
+
+LANGUAGE: TypeScript
+CODE:
+```
+function add(a: Ref<number>, b: Ref<number>) {
+  return computed(() => a.value + b.value)
+}
+```
+
+----------------------------------------
+
+TITLE: Creating a Flexible Addition Function with `MaybeRef` in Vue
+DESCRIPTION: This snippet defines a highly flexible `add` function that accepts arguments of type `Ref<number> | number` (i.e., `MaybeRef<number>`). It uses the `unref` utility to extract the value from either a ref or a plain number, returning a `computed` ref that reactively updates based on its inputs, regardless of their reactivity status.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_11
+
+LANGUAGE: TypeScript
+CODE:
+```
+function add(
+  a: Ref<number> | number,
+  b: Ref<number> | number,
+) {
+  return computed(() => unref(a) + unref(b))
+}
+```
+
+----------------------------------------
+
+TITLE: Building Slidev SPA with Default Settings - Bash
+DESCRIPTION: This command builds the Slidev presentation into a static Single-page application (SPA). By default, the generated files are placed in the `dist` folder, ready for static server deployment.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/hosting.md#_snippet_0
+
+LANGUAGE: bash
+CODE:
+```
+$ slidev build
+```
+
+----------------------------------------
+
+TITLE: Creating a New Slidev Project Locally with Bun
+DESCRIPTION: This command initializes a new Slidev project using Bun. This process offers a modern and fast alternative for project setup and requires Node.js version 18.0 or higher.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/index.md#_snippet_3
+
+LANGUAGE: bash
+CODE:
+```
+bun create slidev
+```
+
+----------------------------------------
+
+TITLE: Creating a New Slidev Project Locally with pnpm
+DESCRIPTION: This command initializes a new Slidev project using pnpm. It first checks if pnpm is installed globally and installs it if not, then proceeds to create the project. This process requires Node.js version 18.0 or higher.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/index.md#_snippet_0
+
+LANGUAGE: bash
+CODE:
+```
+# If you haven't installed pnpm
+npm i -g pnpm
+
+pnpm create slidev
+```
+
+----------------------------------------
+
+TITLE: Using Slidev Composables in Vue Script Setup
+DESCRIPTION: Shows how to programmatically access Slidev's global context and reactive states using composables imported from @slidev/client. This includes useSlideContext, useNav, useDarkMode, useIsSlideActive, and slide lifecycle hooks like onSlideEnter and onSlideLeave for type-safe and programmatic control.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/global-context.md#_snippet_2
+
+LANGUAGE: Vue
+CODE:
+```
+<script setup>
+import { onSlideEnter, onSlideLeave, useDarkMode, useIsSlideActive, useNav, useSlideContext } from '@slidev/client'
+
+const { $slidev } = useSlideContext()
+const { currentPage, currentLayout, currentSlideRoute } = useNav()
+const { isDark } = useDarkMode()
+const isActive = useIsSlideActive()
+onSlideEnter(() => { /* ... */ })
+onSlideLeave(() => { /* ... */ })
+// ...
+</script>
+```
+
+----------------------------------------
+
+TITLE: Managing Slide Lifecycle with Hooks in Slidev (TypeScript)
+DESCRIPTION: This snippet demonstrates how to use Slidev's client-side hooks to manage the lifecycle of individual slides. `onSlideEnter` is called when a slide becomes active, and `onSlideLeave` is called when it becomes inactive. `useIsSlideActive` provides a reactive boolean indicating the current slide's active state. These hooks are crucial because standard Vue `onMounted` and `onUnmounted` do not behave as expected in Slidev due to component instance preservation.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/features/slide-hook.md#_snippet_0
+
+LANGUAGE: typescript
+CODE:
+```
+import { onSlideEnter, onSlideLeave, useIsSlideActive } from '@slidev/client'
+
+const isActive = useIsSlideActive()
+
+onSlideEnter(() => {
+  /* Called whenever the slide becomes active */
+})
+
+onSlideLeave(() => {
+  /* Called whenever the slide becomes inactive */
+})
+```
+
+----------------------------------------
+
+TITLE: Adding Presenter Notes to Slides - Slidev Markdown
+DESCRIPTION: This snippet demonstrates how to add presenter notes to individual slides in Slidev using HTML comment blocks (`<!-- ... -->`). Notes must be placed at the very end of a slide's content to be recognized and will appear in presenter mode, supporting basic Markdown and HTML formatting.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/syntax.md#_snippet_2
+
+LANGUAGE: Markdown
+CODE:
+```
+---
+layout: cover
+---
+
+# Slide 1
+
+This is the cover page.
+
+<!-- This is a **note** -->
+
+---
+
+# Slide 2
+
+<!-- This is NOT a note because it is not at the end of the slide -->
+
+The second page
+
+<!--
+This is _another_ note
+-->
+```
+
+----------------------------------------
+
+TITLE: GitHub Actions Workflow for Slidev Deployment - YAML
+DESCRIPTION: This YAML configuration defines a GitHub Actions workflow for deploying Slidev presentations to GitHub Pages. It automates the build process, sets up Node.js, installs dependencies, builds the slides with a base path, and deploys the generated artifacts.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/hosting.md#_snippet_5
+
+LANGUAGE: yaml
+CODE:
+```
+name: Deploy pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      - name: Setup @antfu/ni
+        run: npm i -g @antfu/ni
+
+      - name: Install dependencies
+        run: nci
+
+      - name: Build
+        run: nr build --base /${{github.event.repository.name}}/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+----------------------------------------
+
+TITLE: Managing Side Effects with `effectScope` (Vue 3.1 RFC)
+DESCRIPTION: This TypeScript snippet introduces the `effectScope` API, an upcoming feature in Vue 3.1 designed to automatically collect and dispose of reactive effects (like `computed`, `watch`, `watchEffect`). By wrapping effects within an `effectScope`, all associated effects can be stopped together by calling `stop(scope)`, simplifying cleanup logic for complex composables or application modules.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_25
+
+LANGUAGE: TypeScript
+CODE:
+```
+// effect, computed, watch, watchEffect created inside the scope will be collected
+
+const scope = effectScope(() => {
+  const doubled = computed(() => counter.value * 2)
+
+  watch(doubled, () => console.log(double.value))
+
+  watchEffect(() => console.log('Count: ', double.value))
+})
+
+// dispose all effects in the scope
+stop(scope)
+```
+
+----------------------------------------
+
+TITLE: Enabling Interactive Monaco Editor in Slidev (TypeScript)
+DESCRIPTION: This snippet demonstrates how to transform a standard code block into an interactive Monaco Editor instance within a Slidev presentation. By appending `{monaco}` after the language identifier (e.g., `ts`), the code block becomes editable, allowing real-time modifications during the presentation. This feature is useful for live coding demonstrations or interactive examples.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/features/monaco-editor.md#_snippet_0
+
+LANGUAGE: Markdown
+CODE:
+```
+```ts {monaco}
+console.log('HelloWorld')
+```
+```
+
+----------------------------------------
+
+TITLE: Demonstrating TypeScript Code Highlighting and TwoSlash
+DESCRIPTION: This TypeScript snippet illustrates the use of Vue's ref and computed properties, showcasing Slidev's code highlighting capabilities and integration with TwoSlash for TypeScript type information and error display. It highlights how to define reactive data and derived properties.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/starter/slides.md#_snippet_4
+
+LANGUAGE: ts
+CODE:
+```
+// TwoSlash enables TypeScript hover information
+// and errors in markdown code blocks
+// More at https://shiki.style/packages/twoslash
+
+import { computed, ref } from 'vue'
+
+const count = ref(0)
+const doubled = computed(() => count.value * 2)
+
+doubled.value = 2
+```
+
+----------------------------------------
+
+TITLE: Initializing Feature Filtering Logic (Vue/TypeScript)
+DESCRIPTION: This snippet sets up the reactive state and computed properties for filtering Slidev features. It uses `useUrlSearchParams` from `@vueuse/core` to synchronize search and tag filters with URL hash parameters, allowing for persistent filtering across page loads. It defines `filteredFeatures` based on user input and provides functions to reset or remove individual tags.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/features/index.md#_snippet_0
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { useUrlSearchParams } from '@vueuse/core'
+import { computed, toRef, ref } from 'vue'
+import { withBase } from 'vitepress'
+import { data as features } from './index.data'
+
+const query = useUrlSearchParams('hash-params', { removeFalsyValues: true })
+const search = toRef(query, 'search') as Ref<string | null>
+const tags = toRef(query, 'tags') as Ref<string | null>
+const tagsArr = computed({
+  get: () => tags.value?.toLowerCase().split(',').map(t => t.trim()).filter(Boolean) ?? [],
+  set: (val: string[]) => query.tags = val.join(','),
+})
+
+const filteredFeatures = computed(() => {
+  const s = search.value?.toLowerCase().trim()
+  const t = tagsArr.value
+  return Object.values(features).filter(feature => {
+    return (!s || feature.title.toLowerCase().includes(s) || feature.description.toLowerCase().includes(s))
+      && (!t?.length || t.every(tag => feature.tags?.includes(tag)))
+  })
+})
+
+function resetFilters() {
+  query.search = null
+  query.tags = null
+}
+
+function removeTag(tag: string) {
+  tagsArr.value = tagsArr.value.filter(t => t !== tag)
+}
+```
+
+----------------------------------------
+
+TITLE: Specifying Layout in Slide Frontmatter - Markdown
+DESCRIPTION: This snippet demonstrates how to apply a specific layout to a Slidev slide using the 'layout' key in the frontmatter. The content following the frontmatter will be rendered within the specified layout, allowing for custom slide structures. This is a fundamental way to control the visual presentation of individual slides.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/layout.md#_snippet_0
+
+LANGUAGE: Markdown
+CODE:
+```
+---
+layout: quote
+---
+
+A quote from someone
+```
+
+----------------------------------------
+
+TITLE: Initializing Slidev Project with yarn
+DESCRIPTION: This command uses `yarn create` to quickly set up a new Slidev project. It's an alternative way to start a new Slidev presentation using yarn.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/packages/create-app/README.md#_snippet_1
+
+LANGUAGE: bash
+CODE:
+```
+yarn create slidev
+```
+
+----------------------------------------
+
+TITLE: Demonstrating TypeScript with TwoSlash in Slidev (TypeScript)
+DESCRIPTION: This TypeScript code block illustrates basic Vue 3 reactivity using `ref` and `computed`. It also showcases the TwoSlash feature, which provides TypeScript hover information and error checking directly within Markdown code blocks, enhancing the developer experience for live coding demonstrations.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/packages/slidev/template.md#_snippet_6
+
+LANGUAGE: ts
+CODE:
+```
+// TwoSlash enables TypeScript hover information
+// and errors in markdown code blocks
+// More at https://shiki.style/packages/twoslash
+
+import { computed, ref } from 'vue'
+
+const count = ref(0)
+const doubled = computed(() => count.value * 2)
+
+doubled.value = 2
+```
+
+----------------------------------------
+
+TITLE: Configuring Slidev Commands in package.json
+DESCRIPTION: This JSON snippet demonstrates how to define common Slidev CLI commands (`dev`, `build`, `export`) as npm scripts within `package.json`. This configuration allows users to run these commands conveniently using `npm run <script-name>`, streamlining the development and deployment workflow.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/index.md#_snippet_9
+
+LANGUAGE: json
+CODE:
+```
+{
+  "scripts": {
+    "dev": "slidev --open",
+    "build": "slidev build",
+    "export": "slidev export"
+  }
+}
+```
+
+----------------------------------------
+
+TITLE: Configuring Slides with Frontmatter - Slidev Markdown
+DESCRIPTION: This example illustrates the use of YAML frontmatter at the beginning of Slidev Markdown files. The first frontmatter block acts as a 'headmatter' for global deck configuration, while subsequent blocks configure individual slides, allowing settings like theme, title, layout, background, and CSS classes.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/syntax.md#_snippet_1
+
+LANGUAGE: Markdown
+CODE:
+```
+---
+theme: seriph
+title: Welcome to Slidev
+---
+
+# Slide 1
+
+The frontmatter of this slide is also the headmatter
+
+---
+layout: center
+background: /background-1.png
+class: text-white
+---
+
+# Slide 2
+
+A page with the layout `center` and a background image
+
+---
+
+# Slide 3
+
+A page without frontmatter
+
+---
+src: ./pages/4.md  # This slide only contains a frontmatter
+---
+
+---
+
+# Slide 5
+```
+
+----------------------------------------
+
+TITLE: Implementing Named Slots in Slidev Vue Layout
+DESCRIPTION: This Vue component example (`split.vue`) illustrates a more advanced Slidev layout that utilizes named slots. Named slots like `<slot name="left" />` and `<slot name="right" />` allow for specific content sections to be defined and filled independently, enabling more complex slide designs.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/write-layout.md#_snippet_2
+
+LANGUAGE: vue
+CODE:
+```
+<template>
+  <div class="slidev-layout split">
+    <div class="left">
+      <slot name="left" />
+    </div>
+    <div class="right">
+      <slot name="right" />
+    </div>
+  </div>
+</template>
+```
+
+----------------------------------------
+
+TITLE: Interactive TypeScript Constant Declaration with Twoslash
+DESCRIPTION: This TypeScript snippet declares a constant variable `a` with the value `1`. It combines `monaco-run` for interactive execution and `twoslash` for enhanced TypeScript language services, allowing for a live, type-checked code experience.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/packages/vscode/syntaxes/slidev.example.md#_snippet_5
+
+LANGUAGE: typescript
+CODE:
+```
+const a = 1
+```
+
+----------------------------------------
+
+TITLE: Creating Composable Functions with Objects of Refs
+DESCRIPTION: This TypeScript snippet demonstrates a pattern for creating composable functions that return an object where each property is a `Ref`. This allows for destructuring the composable's return value into individual refs, while also enabling the entire object to be wrapped by `reactive()` for auto-unwrapping behavior when needed. This combines the benefits of both `ref` and `reactive` for flexible state management.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_21
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { reactive, ref } from 'vue'
+
+function useMouse() {
+  return {
+    x: ref(0),
+    y: ref(0),
+  }
+}
+
+const { x, y } = useMouse()
+const mouse = reactive(useMouse())
+
+mouse.x === x.value // true
+```
+
+----------------------------------------
+
+TITLE: Adding Custom Vite Plugins Based on Slide Data (TypeScript)
+DESCRIPTION: This configuration demonstrates how to add custom Vite plugins dynamically based on the current slide data. By creating a `./setup/vite-plugins.ts` file and using `defineVitePluginsSetup`, developers can access `options.data.slides` to conditionally register plugins, enabling more advanced and context-aware customizations.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/custom/config-vite.md#_snippet_2
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { defineVitePluginsSetup } from '@slidev/types'
+
+export default defineVitePluginsSetup((options) => {
+  return [
+    // Your plugins here
+    // Slide data is available as options.data.slides
+  ]
+})
+```
+
+----------------------------------------
+
+TITLE: Slidev Project Directory Structure (Bash)
+DESCRIPTION: This snippet illustrates the conventional directory structure for a Slidev project. It shows where custom components, layouts, static assets, setup files, code snippets, styles, and the main slides entry file (slides.md) should be placed. All listed directories and files are optional.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/custom/directory-structure.md#_snippet_0
+
+LANGUAGE: bash
+CODE:
+```
+your-slidev/
+  ├── components/       # custom components
+  ├── layouts/          # custom layouts
+  ├── public/           # static assets
+  ├── setup/            # custom setup / hooks
+  ├── snippets/         # code snippets
+  ├── styles/           # custom style
+  ├── index.html        # injections to index.html
+  ├── slides.md         # the main slides entry
+  └── vite.config.ts    # extending vite config
+```
+
+----------------------------------------
+
+TITLE: Configuring Individual Slide Settings (YAML)
+DESCRIPTION: This YAML snippet outlines the configuration options available for individual slides within a Slidev presentation. It includes settings such as custom click counts, visibility toggles, layout definition, route aliases, and transition effects, applied in the frontmatter of each specific slide.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/custom/index.md#_snippet_1
+
+LANGUAGE: yaml
+CODE:
+```
+---
+# custom clicks count
+# Learn more: https://sli.dev/guide/animations.html#custom-total-clicks-count
+clicks: 0
+# custom start clicks count
+clicksStart: 0
+# completely disable and hide the slide
+disabled: false
+# the same as `disabled`
+hide: false
+# hide the slide for the <Toc> components
+hideInToc: false
+# defines the layout component applied to the slide
+layout: <"cover" if the slide is the first slide, otherwise "default">
+# override the title level for the <TitleRenderer> and <Toc> components
+# only if `title` has also been declared
+level: 1
+# mount this slide before entering
+preload: true
+# create a route alias that can be used in the URL or with the <Link> component
+routeAlias: undefined # or string
+# includes a markdown file
+# Learn more: https://sli.dev/guide/syntax.html#importing-slides
+src: undefined # or string
+# override the title for the <TitleRenderer> and <Toc> components
+# only if `title` has also been declared
+title: undefined # or string
+# defines the transition between the slide and the next one
+# Learn more: https://sli.dev/guide/animations.html#slide-transitions
+transition: undefined # or BuiltinSlideTransition | string | TransitionGroupProps | null
+# custom zoom scale
+# useful for slides with a lot of content
+zoom: 1
+# used as positions of draggable elements
+# Learn more: https://sli.dev/features/draggable.html
+dragPos: {} # type: Record<string, string>
+---
+```
+
+----------------------------------------
+
+TITLE: Creating a Diff View with Monaco Editor in Slidev (TypeScript)
+DESCRIPTION: This snippet illustrates how to generate a visual diff between two versions of code using the Monaco Diff Editor in Slidev. By adding `{monaco-diff}` after the language identifier and separating the original and modified code with `~~~`, Slidev renders a side-by-side comparison, highlighting changes. This is ideal for showcasing code evolution or demonstrating refactoring.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/features/monaco-editor.md#_snippet_1
+
+LANGUAGE: Markdown
+CODE:
+```
+```ts {monaco-diff}
+console.log('Original text')
+~~~
+console.log('Modified text')
+```
+```
+
+----------------------------------------
+
+TITLE: Displaying Code with Syntax Highlighting - Slidev Markdown
+DESCRIPTION: This example shows how to embed a syntax-highlighted code block within a Slidev Markdown slide. It uses standard Markdown fenced code blocks (```) with a language identifier (e.g., `ts` for TypeScript) to enable automatic syntax highlighting via Shiki.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/syntax.md#_snippet_3
+
+LANGUAGE: Markdown
+CODE:
+```
+```ts
+console.log('Hello, World!')
+```
+```
+
+----------------------------------------
+
+TITLE: Self-Cleaning Side Effects in Vue Composables
+DESCRIPTION: This TypeScript snippet demonstrates how to ensure side effects, such as event listeners, are properly cleaned up when a component unmounts. The `useEventListener` composable adds an event listener and then uses Vue's `onUnmounted` lifecycle hook to remove it, preventing memory leaks and ensuring proper resource management. This pattern is recommended for custom composable functions.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_24
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { onUnmounted } from 'vue'
+
+export function useEventListener(target: EventTarget, name: string, fn: any) {
+  target.addEventListener(name, fn)
+
+  onUnmounted(() => {
+    target.removeEventListener(name, fn) // <--
+  })
+}
+```
+
+----------------------------------------
+
+TITLE: Auto Unwrapping Nested Refs in Reactive Objects in Vue
+DESCRIPTION: This snippet demonstrates that when a `ref` is nested inside a `reactive` object, Vue automatically unwraps it. Accessing `data.foo` directly returns the ref's value ('bar') instead of the ref object itself, simplifying data access within reactive structures.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_4
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { reactive, ref } from 'vue'
+
+const foo = ref('bar')
+const data = reactive({ foo, id: 10 })
+data.foo // 'bar'
+```
+
+----------------------------------------
+
+TITLE: Ref Auto Unwrapping in Vue Templates
+DESCRIPTION: This HTML template snippet shows how `ref` values are automatically unwrapped when used within Vue templates. The `counter` ref can be accessed directly without `.value`, making template syntax cleaner and more intuitive for reactive data display and manipulation.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_3
+
+LANGUAGE: HTML
+CODE:
+```
+<template>
+  <button @click="counter += 1">
+    Counter is {{ counter }}
+  </button>
+</template>
+```
+
+----------------------------------------
+
+TITLE: Automatic TypeScript Type Acquisition in Monaco (TypeScript)
+DESCRIPTION: This example illustrates how Slidev automatically handles TypeScript type acquisition for dependencies used within Monaco editor code blocks. It ensures proper type-checking and autocompletion for libraries like `vue` and `@vueuse/core` without manual configuration.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/custom/config-monaco.md#_snippet_1
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { ref } from 'vue'
+import { useMouse } from '@vueuse/core'
+
+const counter = ref(0)
+```
+
+----------------------------------------
+
+TITLE: Direct Navigation and Config Access in Vue Template
+DESCRIPTION: Illustrates how to directly access global Slidev context properties like $slidev.configs.title and navigation methods like $nav.next() and $nav.nextSlide() within a Vue component's template for displaying configuration values and controlling slide progression.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/global-context.md#_snippet_1
+
+LANGUAGE: Vue
+CODE:
+```
+<template>
+  <div>Title: {{ $slidev.configs.title }}</div>
+  <button @click="$nav.next">
+    Next Click
+  </button>
+  <button @click="$nav.nextSlide">
+    Next Slide
+  </button>
+</template>
+```
+
+----------------------------------------
+
+TITLE: Configuring Global Slide Deck Settings (YAML)
+DESCRIPTION: This YAML snippet defines the default configuration options for an entire Slidev presentation deck. It covers general settings like theme, title, author, export options, presenter mode, and various feature toggles, applied in the headmatter of the first slide.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/custom/index.md#_snippet_0
+
+LANGUAGE: yaml
+CODE:
+```
+---
+# theme id, package name, or local path
+# Learn more: https://sli.dev/guide/theme-addon.html#use-theme
+theme: default
+# addons, can be a list of package names or local paths
+# Learn more: https://sli.dev/guide/theme-addon.html#use-addon
+addons: []
+# title of your slide, will inferred from the first header if not specified
+title: Slidev
+# titleTemplate for the webpage, `%s` will be replaced by the slides deck's title
+titleTemplate: '%s - Slidev'
+# information for your slides, can be a Markdown string
+info: false
+# author field for exported PDF or PPTX
+author: Your Name Here
+# keywords field for exported PDF, comma-delimited
+keywords: keyword1,keyword2
+
+# enable presenter mode, can be boolean, 'dev' or 'build'
+presenter: true
+# enable browser exporter, can be boolean, 'dev' or 'build'
+browserExporter: dev
+# enabled pdf downloading in SPA build, can also be a custom url
+download: false
+# filename of the export file
+exportFilename: slidev-exported
+# export options
+# use export CLI options in camelCase format
+# Learn more: https://sli.dev/guide/exporting.html
+export:
+  format: pdf
+  timeout: 30000
+  dark: false
+  withClicks: false
+  withToc: false
+# enable twoslash, can be boolean, 'dev' or 'build'
+twoslash: true
+# show line numbers in code blocks
+lineNumbers: false
+# enable monaco editor, can be boolean, 'dev' or 'build'
+monaco: true
+# Where to load monaco types from, can be 'cdn', 'local' or 'none'
+monacoTypesSource: local
+# explicitly specify extra local packages to import the types for
+monacoTypesAdditionalPackages: []
+# explicitly specify extra local modules as dependencies of monaco runnable
+monacoRunAdditionalDeps: []
+# download remote assets in local using vite-plugin-remote-assets, can be boolean, 'dev' or 'build'
+remoteAssets: false
+# controls whether texts in slides are selectable
+selectable: true
+# enable slide recording, can be boolean, 'dev' or 'build'
+record: dev
+# enable Slidev's context menu, can be boolean, 'dev' or 'build'
+contextMenu: true
+# enable wake lock, can be boolean, 'dev' or 'build'
+wakeLock: true
+# take snapshot for each slide in the overview
+overviewSnapshots: false
+
+# force color schema for the slides, can be 'auto', 'light', or 'dark'
+colorSchema: auto
+# router mode for vue-router, can be "history" or "hash"
+routerMode: history
+# aspect ratio for the slides
+aspectRatio: 16/9
+# real width of the canvas, unit in px
+canvasWidth: 980
+# used for theme customization, will inject root styles as `--slidev-theme-x` for attribute `x`
+themeConfig:
+  primary: '#5d8392'
+
+# favicon, can be a local file path or URL
+favicon: 'https://cdn.jsdelivr.net/gh/slidevjs/slidev/assets/favicon.png'
+# URL of PlantUML server used to render diagrams
+# Learn more: https://sli.dev/features/plantuml.html
+plantUmlServer: https://www.plantuml.com/plantuml
+# fonts will be auto-imported from Google fonts
+# Learn more: https://sli.dev/custom/config-fonts.html
+fonts:
+  sans: Roboto
+  serif: Roboto Slab
+  mono: Fira Code
+
+# default frontmatter applies to all slides
+defaults:
+  layout: default
+  # ...
+
+# drawing options
+# Learn more: https://sli.dev/guide/drawing.html
+drawings:
+  enabled: true
+  persist: false
+  presenterOnly: false
+  syncAll: true
+
+# HTML tag attributes
+htmlAttrs:
+  dir: ltr
+  lang: en
+
+# SEO meta tags
+seoMeta:
+  ogTitle: Slidev Starter Template
+  ogDescription: Presentation slides for developers
+  ogImage: https://cover.sli.dev
+  ogUrl: https://example.com
+  twitterCard: summary_large_image
+  twitterTitle: Slidev Starter Template
+  twitterDescription: Presentation slides for developers
+  twitterImage: https://cover.sli.dev
+  twitterSite: username
+  twitterUrl: https://example.com
+---
+```
+
+----------------------------------------
+
+TITLE: Initializing Reactive Variable in Vue 3 TypeScript
+DESCRIPTION: This Vue 3 Composition API script block imports the `ref` function to create a reactive variable `a` initialized with the value `1`. This pattern is common for managing reactive state within Vue components.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/packages/vscode/syntaxes/slidev.example.md#_snippet_1
+
+LANGUAGE: typescript
+CODE:
+```
+import { ref } from 'vue'
+let a = ref(1)
+```
+
+----------------------------------------
+
+TITLE: Shiki Magic Move with Highlighting and Line Numbers (JS)
+DESCRIPTION: Shows how to combine Shiki Magic Move with Slidev's line highlighting and line numbering features. This example illustrates a transition between two JavaScript code states, each with distinct highlighting and line number configurations.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/features/shiki-magic-move.md#_snippet_1
+
+LANGUAGE: javascript
+CODE:
+```
+let count = 1
+function add() {
+  count++
+}
+```
+
+LANGUAGE: javascript
+CODE:
+```
+let count = 1
+const add = () => count += 1
+```
+
+----------------------------------------
+
+TITLE: Embedding YouTube Videos with Youtube Component - Slidev - Markdown
+DESCRIPTION: The `Youtube` component embeds a YouTube video using its video ID. It allows specifying the width and height of the embedded player. A starting time can be set by appending `?start=SECONDS` to the video ID.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/builtin/components.md#_snippet_12
+
+LANGUAGE: markdown
+CODE:
+```
+<Youtube id="luoMHjh-XcQ" />
+```
+
+----------------------------------------
+
+TITLE: Transforming Asynchronous Data to Synchronous with Composition API
+DESCRIPTION: These snippets contrast traditional asynchronous data fetching with a Composition API approach. The Composition API example shows how `useFetch` can establish 'connections' (reactive references) first, allowing data to be filled in later. This pattern, similar to SWR, enables reactive computations (`computed`) to depend on data that will eventually arrive, making async operations feel more 'synchronous' in terms of reactive flow.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_22
+
+LANGUAGE: TypeScript
+CODE:
+```
+const data = await fetch('https://api.github.com/').then(r => r.json())
+
+// use data
+```
+
+LANGUAGE: TypeScript
+CODE:
+```
+const { data } = useFetch('https://api.github.com/').json()
+
+const user_url = computed(() => data.value?.user_url)
+```
+
+----------------------------------------
+
+TITLE: Implementing Default Slot in Slidev Vue Layout
+DESCRIPTION: This Vue component example (`default.vue`) demonstrates a basic Slidev layout that uses the default `<slot/>`. The default slot is where the main content of a slide will be injected when this layout is applied.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/write-layout.md#_snippet_1
+
+LANGUAGE: vue
+CODE:
+```
+<template>
+  <div class="slidev-layout default">
+    <slot />
+  </div>
+</template>
+```
+
+----------------------------------------
+
+TITLE: Installing Slidev CLI Globally with Bun
+DESCRIPTION: This command installs the Slidev command-line interface globally using Bun. A global installation is useful for users who prefer to manage their slides as a single Markdown file, enabling direct execution of Slidev commands from any directory.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/index.md#_snippet_7
+
+LANGUAGE: bash
+CODE:
+```
+bun i -g @slidev/cli
+```
+
+----------------------------------------
+
+TITLE: Reusing Refs with Vue's `ref()` Function
+DESCRIPTION: These TypeScript snippets illustrate how Vue's `ref()` function handles existing refs. When an existing `Ref` is passed to `ref()`, it returns the original ref instance, preventing unnecessary wrapping. This behavior simplifies composable functions by allowing them to accept `MaybeRef` types and normalize them into `Ref` instances without explicit `isRef` checks.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_19
+
+LANGUAGE: TypeScript
+CODE:
+```
+const foo = ref(1) // Ref<1>
+const bar = ref(foo) // Ref<1>
+
+foo === bar // true
+```
+
+LANGUAGE: TypeScript
+CODE:
+```
+function useFoo(foo: Ref<string> | string) {
+  // no need!
+  const bar = isRef(foo) ? foo : ref(foo)
+
+  // they are the same
+  const bar = ref(foo)
+
+  /* ... */
+}
+```
+
+----------------------------------------
+
+TITLE: Using Vue Components in Markdown for Slidev
+DESCRIPTION: This snippet demonstrates how to embed a Vue component, `MyComponent`, directly into a Slidev Markdown slide. The `unplugin-vue-components` plugin automatically makes components available without explicit imports, allowing for dynamic content.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/component.md#_snippet_0
+
+LANGUAGE: Markdown
+CODE:
+```
+# My Slide
+
+<MyComponent :count="4"/>
+```
+
+----------------------------------------
+
+TITLE: Creating a Two-Column Layout with CSS Grid in Markdown
+DESCRIPTION: Demonstrates how to use UnoCSS utility classes for CSS Grid to create a simple two-column layout. The `grid` class enables grid display, `grid-cols-2` defines two equal columns, and `gap-4` adds spacing between them.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/faq.md#_snippet_3
+
+LANGUAGE: markdown
+CODE:
+```
+<div class="grid grid-cols-2 gap-4">
+  <div>
+    The first column
+  </div>
+  <div>
+    The second column
+  </div>
+</div>
+```
+
+----------------------------------------
+
+TITLE: Defining User Interface and Updating User Data in TypeScript
+DESCRIPTION: This TypeScript snippet defines an interface for a 'User' object, specifying its properties and types. It also includes a 'updateUser' function that takes a user ID and a partial 'User' object to update an existing user's data by merging the new information and saving it.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/packages/create-theme/template/example.md#_snippet_0
+
+LANGUAGE: TypeScript
+CODE:
+```
+interface User {
+  id: number
+  firstName: string
+  lastName: string
+  role: string
+}
+
+function updateUser(id: number, update: Partial<User>) {
+  const user = getUser(id)
+  const newUser = { ...user, ...update }
+  saveUser(id, newUser)
+}
+```
+
+----------------------------------------
+
+TITLE: Implementing the `unref` Utility Function in Vue
+DESCRIPTION: This snippet provides the TypeScript implementation of the `unref` utility function. It checks if the input `r` is a `Ref` using `isRef` and returns its `.value` if it is, otherwise it returns the input as-is. This function is crucial for handling `MaybeRef` types flexibly.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_5
+
+LANGUAGE: TypeScript
+CODE:
+```
+function unref<T>(r: Ref<T> | T): T {
+  return isRef(r) ? r.value : r
+}
+```
+
+----------------------------------------
+
+TITLE: Initializing Slidev Theme Project with yarn
+DESCRIPTION: This command initializes a new Slidev theme project using yarn. It provides an alternative to npm for users who prefer yarn, running the `create-slidev-theme` package via `yarn create`.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/packages/create-theme/README.md#_snippet_1
+
+LANGUAGE: bash
+CODE:
+```
+yarn create slidev-theme
+```
+
+----------------------------------------
+
+TITLE: Declaring Page Title in Markdown
+DESCRIPTION: Defines the title for page 1 using Markdown h1 heading syntax
+SOURCE: https://github.com/slidevjs/slidev/blob/main/test/fixtures/markdown/sub/page1.md#2025-04-23_snippet_0
+
+LANGUAGE: markdown
+CODE:
+```
+# Page 1
+```
+
+----------------------------------------
+
+TITLE: Using `two-cols` Layout in Slidev
+DESCRIPTION: This snippet demonstrates how to use the `two-cols` layout in Slidev to separate page content into two distinct columns. Content before `::right::` appears on the left, and content after it appears on the right.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/builtin/layouts.md#_snippet_8
+
+LANGUAGE: Markdown
+CODE:
+```
+---
+layout: two-cols
+---
+
+# Left
+
+This shows on the left
+
+::right::
+
+# Right
+
+This shows on the right
+```
+
+----------------------------------------
+
+TITLE: Configuring Internal Slidev Plugins in Vite (TypeScript)
+DESCRIPTION: This configuration demonstrates how to customize options for Slidev's internally used Vite plugins, such as Vue and Markdown-it, by defining them within the `slidev` field of `vite.config.ts`. It allows advanced users to override default settings, for example, adding custom `markdown-it` plugins. This is an advanced feature and requires caution as it may break default Slidev behavior.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/custom/config-vite.md#_snippet_0
+
+LANGUAGE: TypeScript
+CODE:
+```
+/// <reference types="@slidev/types" />
+import type MarkdownIt from 'markdown-it'
+declare const MyPlugin: (md: any) => void
+// ---cut---
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  slidev: {
+    vue: {
+      /* vue options */
+    },
+    markdown: {
+      /* markdown-it options */
+      markdownItSetup(md) {
+        /* custom markdown-it plugins */
+        md.use(MyPlugin)
+      }
+    },
+    /* options for other plugins */
+  }
+})
+```
+
+----------------------------------------
+
+TITLE: Applying Click Animations to Elements
+DESCRIPTION: This HTML snippet illustrates the use of the v-click directive to make an element appear only after a user click. This feature enables step-by-step content revelation, enhancing presentation flow and engagement.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/starter/slides.md#_snippet_12
+
+LANGUAGE: html
+CODE:
+```
+<div v-click>This shows up when you click the slide.</div>
+```
+
+----------------------------------------
+
+TITLE: Initializing and Updating Ref in Vue
+DESCRIPTION: This snippet demonstrates the basic usage of `ref` from Vue's Composition API. It shows how a primitive variable `foo` is assigned directly, while a reactive `ref` variable `bar` requires `.value` for assignment, otherwise resulting in a TypeScript error. `ref` is used to make primitive values reactive.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_0
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { ref } from 'vue'
+
+let foo = 0
+let bar = ref(0)
+
+foo = 1
+bar = 1 // ts-error
+```
+
+----------------------------------------
+
+TITLE: Initializing and Updating Reactive Objects in Vue
+DESCRIPTION: This snippet illustrates the use of `reactive` from Vue's Composition API for creating reactive objects. It contrasts a plain JavaScript object `foo` with a `reactive` object `bar`, showing that properties of `reactive` objects can be updated directly, maintaining reactivity without needing `.value`.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_1
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { reactive } from 'vue'
+
+const foo = { prop: 0 }
+const bar = reactive({ prop: 0 })
+
+foo.prop = 1
+bar.prop = 1
+```
+
+----------------------------------------
+
+TITLE: Using Custom Vue Components in Slides
+DESCRIPTION: This HTML snippet demonstrates how to embed a custom Vue component, Counter, within a Slidev presentation. It passes a count prop, illustrating how interactive components can be integrated to enhance slide functionality.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/starter/slides.md#_snippet_9
+
+LANGUAGE: html
+CODE:
+```
+<Counter :count="10" />
+```
+
+----------------------------------------
+
+TITLE: Extending UnoCSS Configuration in TypeScript
+DESCRIPTION: This TypeScript configuration file (`uno.config.ts`) demonstrates how to extend UnoCSS's default settings. It uses `defineConfig` to add custom shortcuts, specifically defining a `bg-main` shortcut that applies different background and text colors for light and dark modes. This allows for reusable and semantic utility classes.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/custom/config-unocss.md#_snippet_1
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { defineConfig } from 'unocss'
+
+export default defineConfig({
+  shortcuts: {
+    // custom the default background
+    'bg-main': 'bg-white text-[#181818] dark:(bg-[#121212] text-[#ddd])'
+  },
+  // ...
+})
+```
+
+----------------------------------------
+
+TITLE: Implementing Next Page Navigation with Vue.js in Slidev (HTML)
+DESCRIPTION: This HTML snippet creates a clickable span element that navigates to the next slide or animation in a Slidev presentation. It uses Vue's `@click` directive to call the `$slidev.nav.next` method and applies Tailwind CSS-like utility classes for styling and layout.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/packages/slidev/template.md#_snippet_1
+
+LANGUAGE: html
+CODE:
+```
+<div class="pt-12">
+  <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" flex="~ justify-center items-center gap-2" hover="bg-white bg-opacity-10">
+    Press Space for next page <div class="i-carbon:arrow-right inline-block"/>
+  </span>
+</div>
+```
+
+----------------------------------------
+
+TITLE: Creating a Horizontal Layout with Flexbox in Markdown
+DESCRIPTION: Shows how to use UnoCSS Flexbox utility classes to arrange elements horizontally. The `flex` class enables flex display, and `items-center` vertically aligns items in the center.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/faq.md#_snippet_5
+
+LANGUAGE: markdown
+CODE:
+```
+<div class="flex items-center">
+  <div>
+    First block
+  </div>
+  <div>
+    Second block
+  </div>
+</div>
+```
+
+----------------------------------------
+
+TITLE: Defining the `MaybeRef` Type Helper in Vue
+DESCRIPTION: This snippet defines the `MaybeRef` type alias, a common pattern in VueUse. It represents a type that can either be a `Ref<T>` or a plain `T`, allowing functions to accept arguments that are optionally reactive, enhancing flexibility and reusability.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_13
+
+LANGUAGE: TypeScript
+CODE:
+```
+type MaybeRef<T> = Ref<T> | T
+```
+
+----------------------------------------
+
+TITLE: Controlling Slide Navigation with $nav in JavaScript
+DESCRIPTION: Illustrates various methods and properties available on the $nav object for controlling slide navigation programmatically. This includes advancing steps (next()), skipping clicks to the next slide (nextSlide()), jumping to a specific slide (go()), and accessing current slide information (currentPage, currentLayout).
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/global-context.md#_snippet_4
+
+LANGUAGE: JavaScript
+CODE:
+```
+$nav.next() // go next step
+$nav.nextSlide() // go next slide (skip clicks)
+$nav.go(10) // go slide #10
+
+$nav.currentPage // current slide number
+$nav.currentLayout // current layout name
+```
+
+----------------------------------------
+
+TITLE: Defining Custom Code Runners for Slidev
+DESCRIPTION: This TypeScript snippet demonstrates how to define custom code runners for languages like Python and HTML using `defineCodeRunnersSetup`. It shows how to integrate remote execution for Python and HTML sanitization, returning either plain text or HTML output. This setup is typically placed in `./setup/code-runners.ts`.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/custom/config-code-runners.md#_snippet_0
+
+LANGUAGE: TypeScript
+CODE:
+```
+declare const executePythonCodeRemotely: (code: string) => Promise<string>
+declare const sanitizeHtml: (html: string) => string
+// ---cut---
+import { defineCodeRunnersSetup } from '@slidev/types'
+
+export default defineCodeRunnersSetup(() => {
+  return {
+    async python(code, ctx) {
+      // Somehow execute the code and return the result
+      const result = await executePythonCodeRemotely(code)
+      return {
+        text: result
+      }
+    },
+    html(code, ctx) {
+      return {
+        html: sanitizeHtml(code)
+      }
+    },
+    // or other languages, key is the language id
+  }
+})
+```
+
+----------------------------------------
+
+TITLE: Importing Entire File - Markdown
+DESCRIPTION: This snippet demonstrates the basic syntax for importing an entire code file into a Slidev presentation. The `@` symbol refers to the package's root directory, making it easy to reference files relative to the project.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/features/import-snippet.md#_snippet_0
+
+LANGUAGE: md
+CODE:
+```
+<<< @/snippets/snippet.js
+```
+
+----------------------------------------
+
+TITLE: Refactoring `useTimeAgo` with `MaybeRef` Type Helper
+DESCRIPTION: This snippet refactors the `useTimeAgo` composable function to utilize the `MaybeRef` type helper. By using `MaybeRef<Date | number | string>`, the function signature becomes cleaner and more concise, clearly indicating that the `time` argument can be either a ref or a plain value, while maintaining the same flexible behavior.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/demo/composable-vue/slides.md#_snippet_15
+
+LANGUAGE: TypeScript
+CODE:
+```
+import type { Ref } from 'vue'
+import { computed, unref } from 'vue'
+
+type MaybeRef<T> = Ref<T> | T
+
+export function useTimeAgo(
+  time: MaybeRef<Date | number | string>,
+) {
+  return computed(() => someFormating(unref(time)))
+}
+```
+
+----------------------------------------
+
+TITLE: Incorrectly Re-adding Internal Vite Plugins (TypeScript)
+DESCRIPTION: This snippet illustrates an incorrect way to configure internal Slidev plugins. Re-adding plugins like `@vitejs/plugin-vue` directly to the `plugins` array in `vite.config.ts` is not allowed when Slidev already uses them internally. Instead, their options should be passed via the `slidev` field as shown in the correct configuration example.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/custom/config-vite.md#_snippet_1
+
+LANGUAGE: TypeScript
+CODE:
+```
+import Vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [
+    Vue({
+      /* vue options */
+    })
+  ]
+})
+```
+
+----------------------------------------
+
+TITLE: Running TypeScript Code with Monaco Runner
+DESCRIPTION: This snippet demonstrates how to use the Monaco Runner Editor in Slidev to execute TypeScript code. The `{monaco-run}` tag enables the editor, providing a 'Run' button and displaying the output below the code block. By default, the code runs automatically when the slide loads.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/features/monaco-run.md#_snippet_0
+
+LANGUAGE: TypeScript
+CODE:
+```
+function distance(x: number, y: number) {
+  return Math.sqrt(x ** 2 + y ** 2)
+}
+console.log(distance(3, 4))
+```
+
+----------------------------------------
+
+TITLE: Integrating TwoSlash with TypeScript Code Blocks in Slidev
+DESCRIPTION: This snippet illustrates how to enable TwoSlash for a TypeScript code block in Slidev by appending `twoslash` to the language identifier. It demonstrates a basic Vue `ref` declaration, showcasing how TwoSlash can provide type information on hover or inlined, which is beneficial for educational slides.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/features/twoslash.md#_snippet_0
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { ref } from 'vue'
+
+const count = ref(0)
+//            ^?
+```
+
+----------------------------------------
+
+TITLE: Building Slidev SPA with Custom Base Path - Bash
+DESCRIPTION: This command builds the Slidev presentation into a static SPA, specifying a custom base path for deployment under sub-routes. The `--base` path must begin and end with a slash `/`.
+SOURCE: https://github.com/slidevjs/slidev/blob/main/docs/guide/hosting.md#_snippet_1
+
+LANGUAGE: bash
+CODE:
+```
+$ slidev build --base /talks/my-cool-talk/
+```
