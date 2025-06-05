@@ -704,6 +704,56 @@ This is the biggest risk for teams.
 transition: slide-up
 ---
 
+# The 60% Problem
+
+<div class="text-center text-3xl mb-8">
+"The AI got us 60% there, now let's fix the rest"
+</div>
+
+<v-click>
+
+<div class="grid grid-cols-2 gap-12">
+<div class="text-center">
+
+## Traditional Mindset 🛠️
+- Code is precious
+- Fix what's broken
+- Refactor incrementally
+- "Don't waste the work"
+
+</div>
+<div class="text-center">
+
+## AI-Era Mindset ✨
+- Code is disposable
+- **Regenerate** with better prompt
+- Start fresh when stuck
+- "Throwing away is faster"
+
+</div>
+</div>
+
+</v-click>
+
+<v-click>
+
+<div class="mt-8 p-6 bg-green-500/10 border-2 border-green-500/50 rounded-lg text-center">
+<span class="text-2xl">💡</span> <span class="text-lg">When AI code is 60% right, fix the prompt, not the code</span>
+</div>
+
+</v-click>
+
+<!--
+This is a crucial mindset shift that trips up experienced developers.
+The marginal cost of regeneration is nearly zero.
+Time spent debugging AI code often exceeds time to regenerate properly.
+Managers need to encourage this behavior, not discourage "waste."
+-->
+
+---
+transition: slide-up
+---
+
 # Warning Signs for Managers
 
 <div class="grid grid-cols-2 gap-8">
@@ -759,6 +809,61 @@ How to start tomorrow
 <!--
 End with actionable advice.
 They should leave knowing what to DO.
+-->
+
+---
+transition: fade
+---
+
+# What We Learned (The Hard Way)
+
+<div class="grid grid-cols-2 gap-8">
+<div>
+
+## The RAG Chatbot Disaster 💥
+<v-clicks>
+
+- **Weeks building** a "smart" internal chatbot
+- **Nobody used it** - too flaky and unreliable
+- **Missing fundamentals**: prompt engineering, data quality
+- **Lesson**: Fail faster, learn from each iteration
+
+</v-clicks>
+
+<v-click>
+
+## Version 15 Finally Worked ✅
+*Don't ask about Mark 12... that one was scary* 😅
+
+</v-click>
+
+</div>
+<div>
+
+<v-click>
+
+## Key Lessons
+- **AI is wordy** - Fight the word vomit constantly
+- **You break down problems** - AI solves small pieces  
+- **Keeping up is impossible** - This changes daily
+- **Let LLMs interview you** - Ask what they need
+
+</v-click>
+
+<v-click>
+
+## The Reality Check
+My presentation from 3 months ago? **Completely different** from today.
+
+</v-click>
+
+</div>
+</div>
+
+<!--
+Share your honest failures - builds trust and credibility.
+The "leading edge" struggle is real and relatable.
+Version 15 success shows persistence pays off.
 -->
 
 ---
@@ -825,6 +930,72 @@ Instead of copy-pasting, AI directly integrates with your workflow
 Keep MCP explanation simple for managers.
 Focus on the business value, not technical details.
 It's about integration and workflow.
+-->
+
+---
+transition: slide-up
+---
+
+# Getting Started: Start TODAY
+
+<div class="grid grid-cols-2 gap-12">
+<div>
+
+## Day 1: Foundation 🚀
+<v-clicks>
+
+- **Install Claude Code** - $100/month
+- **First hour** pays for itself
+- **Pick your champion** - Systems thinker
+
+</v-clicks>
+
+<v-click>
+
+## Day 2-3: Add Tools
+- **Cursor** for coding
+- **Linters** for quality
+- **First project**: A presentation!
+
+</v-click>
+
+</div>
+<div>
+
+<v-click>
+
+## Week 1: Level Up
+- **Agents** (try fast-agent)
+- **Context7 MCP** (fights hallucinations)
+- **Unsplash MCP** (visual content)
+
+</v-click>
+
+<v-click>
+
+## Week 2: Scale
+- Train the team
+- Document what works
+- Plan next wins
+
+</v-click>
+
+</div>
+</div>
+
+<v-click>
+
+<div class="mt-8 p-4 bg-purple-500/10 border-2 border-purple-500/50 rounded-lg text-center">
+<span class="text-xl">⚡ ROI is immediate - Start today!</span>
+</div>
+
+</v-click>
+
+<!--
+Start with immediate value tools.
+Champion selection is crucial - needs technical depth AND systems thinking.
+MCPs are game-changers but come after basics.
+This presentation itself is proof of concept!
 -->
 
 ---
