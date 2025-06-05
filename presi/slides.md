@@ -258,40 +258,6 @@ The window won't stay open forever.
 -->
 
 ---
-transition: slide-up
----
-
-# One-Person Companies Are Real
-
-<v-clicks>
-
-- **I have an army** - Junior devs and support staff at my fingertips
-- **24/7 availability** - AI doesn't sleep
-- **Instant scaling** - Need 10x output? Just parallelize
-- **Quality + Speed** - No longer a tradeoff
-
-</v-clicks>
-
-<v-click>
-
-## Real Example
-Built a complete analytics agent in 20 minutes during a client call:
-- SQL queries
-- Data visualization
-- Analysis reports  
-- Slack integration
-
-Client reaction: "**Dumbfounded it was that easy**"
-
-</v-click>
-
-<!--
-This challenges their assumptions about team size.
-The 20-minute demo story is powerful - use it.
-Emphasize: This isn't the future, it's NOW.
--->
-
----
 transition: fade-out
 layout: center
 ---
@@ -349,63 +315,6 @@ It's about leverage, not superhuman abilities.
 The bot example shows how AI improves team dynamics.
 -->
 
----
-transition: slide-up
----
-
-# What Disappears with AI
-
-<div class="grid grid-cols-3 gap-6">
-<div v-click class="card">
-
-### Repetitive Reviews
-- "Where are the tests?"
-- Style violations
-- Missing documentation
-
-</div>
-<div v-click class="card">
-
-### Glue Code
-- Integration boilerplate
-- Data transformations
-- API mappings
-
-</div>
-<div v-click class="card">
-
-### Mental Load
-- Remembering conventions
-- Tracking updates
-- Context switching
-
-</div>
-</div>
-
-<v-click>
-
-<div class="mt-12 text-center text-3xl">
-What remains? <span class="gradient-text font-bold">Creative Problem Solving</span>
-</div>
-
-</v-click>
-
-<style>
-.card {
-  @apply p-6 bg-gray-800 rounded-lg border border-gray-700;
-}
-.gradient-text {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400;
-}
-</style>
-
-<!--
-These are concrete things managers can understand.
-Each disappearing task = more time for value creation.
-Emphasize: Humans do human work, AI does robot work.
--->
-
----
 transition: fade
 ---
 
@@ -611,39 +520,6 @@ Your standup bot is a perfect example - simple problem, simple solution, immedia
 -->
 
 ---
-transition: slide-up
----
-
-# The Secret Sauce: Pre-commit Hooks
-
-<div class="text-center mb-8">
-<div class="text-6xl mb-4">🛡️</div>
-<div class="text-2xl">Safety nets for AI-generated code</div>
-</div>
-
-<v-clicks>
-
-- **Linting** - Catches syntax issues
-- **Type checking** - Prevents type errors
-- **Formatting** - Ensures consistency
-- **Test running** - Validates changes
-
-</v-clicks>
-
-<v-click>
-
-## Result:
-AI quirks get caught before they become problems
-
-</v-click>
-
-<!--
-This addresses the "but AI makes mistakes" concern.
-Show that we can have speed AND safety.
-Technical managers will appreciate this.
--->
-
----
 transition: fade
 layout: center
 ---
@@ -812,124 +688,56 @@ They should leave knowing what to DO.
 -->
 
 ---
-transition: fade
+transition: slide-left
 ---
 
-# What We Learned (The Hard Way)
+# Making AI Work Better
 
 <div class="grid grid-cols-2 gap-8">
 <div>
 
-## The RAG Chatbot Disaster 💥
+## Prompt Engineering 101
+<div class="text-center italic mb-4">"Make the LLM interview you"</div>
+
 <v-clicks>
 
-- **Weeks building** a "smart" internal chatbot
-- **Nobody used it** - too flaky and unreliable
-- **Missing fundamentals**: prompt engineering, data quality
-- **Lesson**: Fail faster, learn from each iteration
+- **Have a conversation** - Don't just ask
+- **Provide context** - Background, constraints, goals
+- **Iterate** - First output is rarely final
+- **Show examples** of good output
 
 </v-clicks>
-
-<v-click>
-
-## Version 15 Finally Worked ✅
-*Don't ask about Mark 12... that one was scary* 😅
-
-</v-click>
 
 </div>
 <div>
 
 <v-click>
 
-## Key Lessons
-- **AI is wordy** - Fight the word vomit constantly
-- **You break down problems** - AI solves small pieces  
-- **Keeping up is impossible** - This changes daily
-- **Let LLMs interview you** - Ask what they need
+## MCPs: Integration Superpowers
+<div class="text-center italic mb-4">Connect AI to your actual tools</div>
 
-</v-click>
-
-<v-click>
-
-## The Reality Check
-My presentation from 3 months ago? **Completely different** from today.
+- **Direct integration** - No copy-pasting
+- **Example**: AI reads Jira → updates tickets → notifies Slack
+- **Context7 MCP** - Latest library docs
+- **Unsplash MCP** - Visual content
 
 </v-click>
 
 </div>
 </div>
 
-<!--
-Share your honest failures - builds trust and credibility.
-The "leading edge" struggle is real and relatable.
-Version 15 success shows persistence pays off.
--->
-
----
-transition: slide-left
----
-
-# Prompt Engineering 101
-
-<div class="text-center text-2xl mb-8">
-"Make the LLM interview you"
-</div>
-
-<v-clicks>
-
-- **Don't just ask** - Have a conversation
-- **Provide context** - Background, constraints, goals
-- **Iterate** - First output is rarely final
-- **Teach your style** - Share examples of good output
-
-</v-clicks>
-
 <v-click>
 
-## Example Progression:
-1. ❌ "Build me a dashboard"
-2. ✅ "I need a dashboard for oil & gas metrics"
-3. 🚀 "Here's our design system, build a dashboard showing production metrics with these specific KPIs..."
+<div class="mt-8 p-4 bg-blue-500/10 border-2 border-blue-500/50 rounded-lg text-center">
+<span class="text-lg">💡</span> <span class="text-lg">Better prompts + tool integration = AI that actually helps</span>
+</div>
 
 </v-click>
 
 <!--
 Practical advice they can use immediately.
-The interview concept is powerful - explain it.
-Show the progression from bad to great prompts.
--->
-
----
-transition: slide-up
----
-
-# MCPs: The Superpowers
-
-<div class="text-center mb-8">
-<div class="text-lg opacity-80">Model Context Protocol</div>
-<div class="text-3xl font-bold">Connect AI to your tools</div>
-</div>
-
-<v-clicks>
-
-- **What:** Standardized way for AI to use tools
-- **Why:** AI can interact with your actual systems
-- **Example:** AI reads Jira → updates tickets → notifies Slack
-
-</v-clicks>
-
-<v-click>
-
-## The Power:
-Instead of copy-pasting, AI directly integrates with your workflow
-
-</v-click>
-
-<!--
-Keep MCP explanation simple for managers.
-Focus on the business value, not technical details.
-It's about integration and workflow.
+MCPs explained simply for business value.
+Combined because both are about "using AI effectively."
 -->
 
 ---
@@ -1038,22 +846,43 @@ class: text-center
 
 # Thank You
 
-<div class="text-2xl mb-8">Questions?</div>
+<div class="grid grid-cols-2 gap-12 items-start">
+<div class="text-center">
 
-<div class="text-lg opacity-80">
-Jim Vogel<br>
-Lead Developer @ Gravitate<br>
-<br>
+**Jim Vogel**  
+Tech Lead @ <img src="./images/gravi-logo.webp" class="h-6 inline-block" />
+
+<div class="text-sm mt-4 opacity-80">
 AI Stack: Claude Code, Cursor, Custom Agents
 </div>
 
-<div class="mt-12 text-sm opacity-60">
+</div>
+<div class="text-center">
+
+<div class="text-xl mb-4">Questions?</div>
+
+**Presentation Available:**  
+github.com/voglster/modern_genai_dev_presi
+
+<img src="./images/github-qr.png" class="w-24 mx-auto mt-4" />
+
+</div>
+</div>
+
+<div class="mt-8 text-center">
+<div class="text-sm opacity-80 mb-2">
+🤖 **This entire presentation was a collaboration between Jim and Claude Code**
+</div>
+<div class="text-xs opacity-60 mb-4">
+*Including content, images, transitions, and layout*
+</div>
+<div class="text-sm opacity-60">
 Remember: It's not about the tools, it's about the transformation
+</div>
 </div>
 
 <!--
-Open the floor for questions.
-Be ready for skepticism and concerns.
-Have stories ready for common objections.
-Emphasize: transformation over tools.
+Perfect ending - shows the GitHub repo, includes branding, and demonstrates the collaboration.
+The QR code makes it easy for people to access the presentation later.
+Mentioning the collaboration reinforces the message about AI partnership.
 -->
